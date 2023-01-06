@@ -4,7 +4,9 @@
   "description": "",
   "main": "like_button.js",
   "dependencies": {
+    "apexcharts": "^3.36.3",
     "react": "18.0.0",
+    "react-apexcharts": "^1.4.0",
     "react-dom": "18.0.0"
   },
   "devDependencies": {
