@@ -1,10 +1,9 @@
 import React from "react";
-import * as ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
+import Root from "./components/root.jsx";
 
 ReactDOM.createRoot(
     document.getElementById("app")
 ).render(
-    <div>
-        Hi!
-    </div>   
+    <Root/>
 )
