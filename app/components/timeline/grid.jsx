@@ -9,7 +9,7 @@ function getTickYear(minDate, maxDate, ticks, tick) {
 }
 
 export default function TimelineGrid(props) {
-    const [gridRef, dimensions] = useDimensions();
+    // const [gridRef, dimensions] = useDimensions();
 
     const maxTicks = props.maxTicks ?? 11;
 
@@ -26,7 +26,7 @@ export default function TimelineGrid(props) {
 
     return (
         <div className="xy-centerer zero-pos">
-            <div className="grid" ref={gridRef}>
+            <div className="grid">
                 {ticks}
             </div>
         </div>
