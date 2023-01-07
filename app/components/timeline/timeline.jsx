@@ -1,101 +1,26 @@
 import React from "react";
-import Chart from "react-apexcharts";
 import "../../styles/timeline/timeline.css";
+import Composer from "./composer.jsx";
 import TimelineGrid from "./grid.jsx";
+import "../../extensions/arrayExtensions.js"
 
 export default function Timeline(props) {
+    const minDate = new Date(1600, 0, 1);
+    const maxDate = new Date(1800, 0, 1);
+
+    const composers = props.composers.orderBy(c => c.birthYear);
     return (
         <div className="xy-centerer">
             <div className="timeline relative">
-                <TimelineGrid minDate={new Date(1760, 0, 1)} maxDate={new Date(1770, 0, 1)}/>
+                <TimelineGrid minDate={minDate} maxDate={maxDate} />
+                <div className="zero-pos composers-scroller">
+                    <div className="composers-container">
+                        {composers.map(composer => 
+                            <Composer key={composer.name} composer={composer} minDate={minDate} maxDate={maxDate}/>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
-
-// export default function Timeline(props) {
-//     const series = [
-//         {
-//             data: [
-//                 {
-//                     x: 'Code',
-//                     y: [
-//                         new Date('2019-03-02').getTime(),
-//                         new Date('2019-03-04').getTime()
-//                     ]
-//                 },
-//                 {
-//                     x: 'Test',
-//                     y: [
-//                         new Date('2019-03-04').getTime(),
-//                         new Date('2019-03-08').getTime()
-//                     ]
-//                 },
-//                 {
-//                     x: 'Validation',
-//                     y: [
-//                         new Date('2019-03-08').getTime(),
-//                         new Date('2019-03-12').getTime()
-//                     ]
-//                 },
-//                 {
-//                     x: 'Deployment',
-//                     y: [
-//                         new Date('2019-03-12').getTime(),
-//                         new Date('2019-03-18').getTime()
-//                     ]
-//                 }
-//             ]
-//         }
-//     ];
-
-//     return (
-//         <div className="timeline-container">
-//             <div className="timeline">
-//                 <Chart
-//                     series={series}
-//                     type="rangeBar"
-//                     width="100%"
-//                     options={{
-//                         plotOptions: {
-//                             bar: {
-//                                 horizontal: true
-//                             }
-//                         },
-//                         xaxis: {
-//                             type: 'datetime',
-//                             position: 'top',
-//                             labels: {
-//                                 format: "yyyy"
-//                             }
-//                         },
-//                         yaxis: {
-//                             // show: false,
-//                             labels: {
-//                                 // show: false
-//                             }
-//                         },
-//                         grid: {
-//                             yaxis: {
-//                                 lines: {
-//                                     show: false
-//                                 }
-//                             },
-//                             xaxis: {
-//                                 lines: {
-//                                     show: true,
-//                                 }
-//                             },
-//                             borderColor: '#EEEEEE',
-//                         },
-//                         chart: {
-//                             toolbar: {
-//                                 show: false
-//                             }
-//                         }
-//                     }}
-//                 />
-//             </div>
-//         </div>
-//     )
-// }

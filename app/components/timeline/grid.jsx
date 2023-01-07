@@ -24,7 +24,7 @@ export default function TimelineGrid(props) {
                 key={i}
                 year={getTickYear(i, props.minDate, props.maxDate, tickCount)}
                 offset={getOffset(i, tickCount)}
-                showLabel={true} 
+                showLabel={true}
             />
         )
     }
@@ -35,13 +35,13 @@ export default function TimelineGrid(props) {
             <Tick
                 key={i}
                 offset={getOffset(i, tickCount)}
-                opacity={0.4}
+                opacity={0.66}
             />
         )
     }
 
     return (
-        <div className="xy-centerer zero-pos">
+        <div className="grid-container xy-centerer zero-pos">
             <div className="grid">
                 {ticks}
                 {intermediateTicks}
