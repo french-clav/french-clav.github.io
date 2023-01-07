@@ -1,0 +1,19 @@
+.xy-centerer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.zero-pos {
+    position: absolute;
+    left: 0;
+    right: 0;
+}

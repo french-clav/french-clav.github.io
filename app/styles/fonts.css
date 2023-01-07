@@ -1,0 +1,9 @@
+@font-face {
+    font-family: InterAccent;
+    src: url("../fonts/Inter-accent.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Alegreya;
+    src: url("../fonts/Alegreya-VariableFont_wght.ttf") format("opentype");
+}

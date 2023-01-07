@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/main.css";
-import Timeline from "./timeline.jsx";
+import Timeline from "./timeline/timeline.jsx";
 
 export default function Main() {
     return (
