@@ -16,7 +16,7 @@ export default function ComposerLifetime(props) {
     return (
         <div className="composer-lifetime" style={style}>
             <p>{composer.name}</p>
-            <p className="years">{composer.birthYear} - {composer.deathYear}</p>
+            <p className="years">{composer.birthYear} — {composer.deathYear}</p>
         </div>
     );
 }
