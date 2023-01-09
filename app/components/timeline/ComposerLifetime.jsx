@@ -1,11 +1,10 @@
 import React from "react";
-import "../../styles/timeline/composer.css";
-import TimelineMath from "../../timelineMath";
-import "../../extensions/numberExtensions";
+import "../../styles/timeline/composerLifetime.css";
+import TimelineMath from "../../timelineMath.js";
 
-export default function Composer(props) {
+export default function ComposerLifetime(props) {
     const composer = props.composer;
-    
+
     const birthPoint = TimelineMath.calcOffset(composer.birthDate ?? composer.birthYear, props.minDate, props.maxDate);
     const deathPoint = TimelineMath.calcOffset(composer.deathDate ?? composer.deathYear, props.minDate, props.maxDate);
 
@@ -15,11 +14,9 @@ export default function Composer(props) {
     };
 
     return (
-        <div className="composer-row">
-            <div className="composer-lifetime" style={style}>
-                <p>{props.composer.name}</p>
-                <p className="years">{composer.birthYear} - {composer.deathYear}</p>
-            </div>
+        <div className="composer-lifetime" style={style}>
+            <p>{composer.name}</p>
+            <p className="years">{composer.birthYear} - {composer.deathYear}</p>
         </div>
-    )
+    );
 }

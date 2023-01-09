@@ -1,0 +1,30 @@
+.composer-ghost {
+    margin-left: -3px;
+    margin-right: -3px;
+    height: 100%;
+    padding-left: 8px;
+    position: absolute;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    background-color: rgba(0, 0, 0, 0.01);
+    color: #4e4e4e;
+
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), inset 0 0 7px 0 rgba(0, 0, 0, 0.1);
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    font-family: Raleway;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.composer-ghost p {
+    margin: 0;
+    margin-left: 4px;
+}

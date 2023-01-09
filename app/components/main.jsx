@@ -17,8 +17,8 @@ export default function Main() {
             deathYear: 1672
         },
         {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
+            name: "Жак Шампион де Шамбоньер2",
+            birthYear: null,
             deathYear: 1672
         }
     ];
