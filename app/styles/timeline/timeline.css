@@ -1,5 +1,7 @@
 .timeline {
-    width: 60%;
+    width: 80vh;
+    min-width: 60%;
+    max-width: 90%;
     height: 80%;
 }
 
