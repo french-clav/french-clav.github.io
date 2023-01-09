@@ -1,7 +1,7 @@
 import React from "react"
-import Header from "./header.jsx"
-import Footer from "./footer.jsx"
-import Main from "./main.jsx"
+import Header from "./Header.jsx"
+import Footer from "./Footer.jsx"
+import Main from "./Main.jsx"
 import "../styles/root.css"
 
 export default function Root() {

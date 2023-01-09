@@ -1,5 +1,5 @@
 import React from "react";
-import Tick from "./tick.jsx";
+import GridTick from "./Tick.jsx";
 import "../../styles/timeline/grid.css";
 
 function getTickYear(tick, minDate, maxDate, tickCount) {
@@ -20,7 +20,7 @@ export default function TimelineGrid(props) {
     const ticks = [];
     for (let i = 0; i < tickCount; i++) {
         ticks.push(
-            <Tick
+            <GridTick
                 key={i}
                 year={getTickYear(i, props.minDate, props.maxDate, tickCount)}
                 offset={getOffset(i, tickCount)}
@@ -32,10 +32,10 @@ export default function TimelineGrid(props) {
     const intermediateTicks = [];
     for (let i = 0.5; i < tickCount - 1; i++) {
         intermediateTicks.push(
-            <Tick
+            <GridTick
                 key={i}
                 offset={getOffset(i, tickCount)}
-                opacity={0.66}
+                opacity={0.5}
             />
         )
     }

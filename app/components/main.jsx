@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/main.css";
-import Timeline from "./timeline/timeline.jsx";
+import Timeline from "./timeline/Timeline.jsx";
 
 export default function Main() {
     const composers = [
@@ -20,62 +20,20 @@ export default function Main() {
             name: "Жак Шампион де Шамбоньер",
             birthYear: 1602,
             deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
-        },
-        {
-            name: "Жак Шампион де Шамбоньер",
-            birthYear: 1602,
-            deathYear: 1672
         }
-    ]
+    ];
+
+    const displaySettings = {
+        succession: false,
+        publications: true,
+        lifetimes: true,
+        historicalContext: false,
+        genres: false
+    };
 
     return (
         <main className="main">
-            <Timeline composers={composers}/>
+            <Timeline composers={composers} displaySettings={displaySettings}/>
         </main>
     )
 }

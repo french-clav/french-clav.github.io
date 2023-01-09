@@ -16,7 +16,7 @@
     height: 54px;
 }
 
-.composer {
+.composer-lifetime {
     height: 100%;
     padding-left: 8px;
     border-radius: 5px;
@@ -44,11 +44,11 @@
     cursor: pointer;
 }
 
-.composer p {
+.composer-lifetime p {
     margin: 0;
 }
 
-.composer .years {
+.composer-lifetime .years {
     font-weight: 500;
     font-size: 0.8em;
     color: #696969;

@@ -16,7 +16,7 @@ export default function Composer(props) {
 
     return (
         <div className="composer-row">
-            <div className="composer" style={style}>
+            <div className="composer-lifetime" style={style}>
                 <p>{props.composer.name}</p>
                 <p className="years">{composer.birthYear} - {composer.deathYear}</p>
             </div>
