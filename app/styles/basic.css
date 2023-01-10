@@ -1,4 +1,6 @@
 body {
+    margin: 0;
+
     font-feature-settings: "lnum";
     letter-spacing: -0.3px;
     font-family: Raleway;

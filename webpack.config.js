@@ -1,12 +1,15 @@
 const path = require("path");
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: "./app/app.jsx",
     output: {
         path: path.resolve(__dirname, "./public"),
         publicPath: "/public/",
         filename: "bundle.js"
+    },
+    optimization: {
+        chunkIds: 'named',
     },
     module: {
         rules: [
