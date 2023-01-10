@@ -25,6 +25,14 @@ module.exports = {
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 type: 'asset/resource'
+            },
+            {
+                test: /\.csv$/,
+                loader: 'csv-loader',
+                options: {
+                    header: true,
+                    skipEmptyLines: true
+                }
             }
         ]
     }

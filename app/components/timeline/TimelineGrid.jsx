@@ -1,11 +1,6 @@
 import React from "react";
-import GridTick from "./Tick.jsx";
+import GridTick from "./GridTick.jsx";
 import "../../styles/timeline/grid.css";
-
-function getTickYear(tick, minDate, maxDate, tickCount) {
-    const deltaYears = maxDate.getFullYear() - minDate.getFullYear();
-    return minDate.getFullYear() + Math.floor(deltaYears / (tickCount - 1) * tick);
-}
 
 function getOffset(tick, tickCount) {
     return tick / (tickCount - 1);
@@ -14,27 +9,28 @@ function getOffset(tick, tickCount) {
 export default function TimelineGrid(props) {
     const maxTicks = props.maxTicks ?? 10;
 
-    const deltaYears = props.maxDate.getFullYear() - props.minDate.getFullYear();
-    const tickCount = Math.min(maxTicks, deltaYears);
+    const deltaYears = props.range.end.year - props.range.start.year;
+    const tickCount = Math.min(maxTicks, deltaYears + 1);
 
     const ticks = [];
-    for (let i = 0; i < tickCount; i++) {
+    for (let tickIdx = 0; tickIdx < tickCount; tickIdx++) {
+        const t = getOffset(tickIdx, tickCount);
         ticks.push(
             <GridTick
-                key={i}
-                year={getTickYear(i, props.minDate, props.maxDate, tickCount)}
-                offset={getOffset(i, tickCount)}
+                key={tickIdx}
+                year={props.range.lerp(t).year}
+                offset={t}
                 showLabel={true}
             />
         )
     }
 
     const intermediateTicks = [];
-    for (let i = 0.5; i < tickCount - 1; i++) {
+    for (let tickIdx = 0.5; tickIdx < tickCount - 1; tickIdx++) {
         intermediateTicks.push(
             <GridTick
-                key={i}
-                offset={getOffset(i, tickCount)}
+                key={tickIdx}
+                offset={getOffset(tickIdx, tickCount)}
                 opacity={0.5}
             />
         )

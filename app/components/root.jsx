@@ -7,9 +7,9 @@ import "../styles/root.css"
 export default function Root() {
     return (
         <div id="root">
-            <Header/>
-            <Main/>
-            <Footer/>
+            <Header />
+            <Main />
+            <Footer />
         </div>
     )
 }

@@ -1,3 +1,3 @@
-Number.prototype.toPercent = function() {
+Number.prototype.toPercent = function () {
     return `${this * 100}%`;
 }
