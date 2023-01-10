@@ -12,11 +12,13 @@ export default class Repository {
     }
 
     static _parseComposers(rawComposers) {
-        return rawComposers.map(c => new Composer(
-            c.name,
-            new TimestampRange(c.birth, c.death),
-            this._parsePublications(c.publications)
-        ));
+        return rawComposers.map(c =>
+            new Composer(
+                c.name,
+                new TimestampRange(c.birth, c.death),
+                this._parsePublications(c.publications)
+            )
+        );
     }
 
     static _parsePublications(rawPublications) {
