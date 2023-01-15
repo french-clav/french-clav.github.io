@@ -41,6 +41,13 @@ export default class Timestamp {
         return this.date.getFullYear();
     }
 
+    addYears(years) {
+        const date = new Date(this.date);
+        date.setFullYear(date.getFullYear() + years);
+
+        return new Timestamp(date);
+    }
+
     toString() {
         return this.onlyYear
             ? this.date.getFullYear().toString()

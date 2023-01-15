@@ -9,7 +9,7 @@ export default function GridTick(props) {
         <>
             <div className="grid-tick-line" style={{ left: props.offset.toPercent(), opacity: opacity }}></div>
             {props.showLabel &&
-                <div className="grid-tick-label" style={{ left: props.offset.toPercent(), opacity: opacity }}>
+                <div className="grid-tick-label prevent-select" style={{ left: props.offset.toPercent(), opacity: opacity }}>
                     {props.year}
                 </div>
             }

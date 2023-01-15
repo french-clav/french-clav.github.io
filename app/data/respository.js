@@ -1,8 +1,8 @@
 import rawComposers from "../data/resources/composers.csv";
 
 import Timestamp from "../util/timestamp.js";
-import TimestampRange from "../util/timestampRange.js";
 import Composer from "./composer.js";
+import Publication from "./publication.js";
 
 export default class Repository {
     static _composers = null;
@@ -15,10 +15,13 @@ export default class Repository {
         return rawComposers.map(c =>
             new Composer(
                 c.name,
-                new TimestampRange(c.birth, c.death),
+                !isEmpty(c.birth) ? new Timestamp(c.birth) : null,
+                !isEmpty(c.death) ? new Timestamp(c.death) : null,
                 this._parsePublications(c.publications)
             )
         );
+
+        function isEmpty(value) { return value == null || value === ""; }
     }
 
     static _parsePublications(rawPublications) {
@@ -27,8 +30,8 @@ export default class Repository {
         }
 
         return rawPublications
-            .split(',')
+            .split(",")
             .map(p => p.trim())
-            .map(p => Timestamp.new(p));
+            .map(p => new Publication(p));
     }
 }

@@ -1,0 +1,35 @@
+.display-settings-panel {
+    position: absolute;
+    left: 26px;
+    bottom: 0;
+    padding-right: 30px;
+
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.display-settings-panel label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.display-settings-panel label > * {
+    cursor: pointer;
+}
+
+.display-settings-panel label span {
+    margin-left: 11px;
+    font-weight: 600;
+}
+
+.display-settings-panel section {
+    margin: 12px;
+}
+
+.display-settings-panel input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin: 0;
+}

@@ -2,12 +2,11 @@
     width: 80vh;
     min-width: 60%;
     max-width: 90%;
-    height: 80%;
+    height: 100%;
 }
 
 * {
     scrollbar-width: thin;
-    scrollbar-color: blue orange;
 }
 
 /* Works on Chrome, Edge, and Safari */
