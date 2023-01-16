@@ -7,7 +7,10 @@ export default function Main(props) {
     return (
         <main className="main relative xy-centerer">
             <div className="relative xy-centerer">
-                <Timeline composers={props.composers} displaySettings={props.displaySettings} />
+                {props.composers.length > 0
+                    ? <Timeline composers={props.composers} displaySettings={props.displaySettings} />
+                    : <div className="no-data-placeholder">Выберете параметры для отображения</div>
+                }
                 <DisplaySettingsPanel displaySettings={props.displaySettings} setDisplaySettings={props.setDisplaySettings} />
             </div>
         </main>

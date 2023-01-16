@@ -7,7 +7,7 @@ import PublicationMarker from "./PublicationMarker.jsx";
 export default function ComposerRow(props) {
     const content = props.displaySettings.lifetimes && props.composer.hasKnownLifetime()
         ? <ComposerLifetime composer={props.composer} range={props.range} />
-        : props.displaySettings.publications
+        : props.displaySettings.publications || props.displaySettings.historicalContext || props.displaySettings.genres
             ? <ComposerGhost composer={props.composer} />
             : null;
 

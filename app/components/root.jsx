@@ -7,14 +7,23 @@ import "../styles/root.css"
 import useDisplaySettings from "../hooks/useDisplaySettings.js"
 
 export default function Root() {
-    const composers = Repository.composers;
     const [displaySettings, setDisplaySettings] = useDisplaySettings();
+    const allComposers = Repository.composers;
+
+    const composersToDisplay = allComposers.filter(c => hasAnythingToDisplay(c, displaySettings));
 
     return (
         <div id="root">
             <Header />
-            <Main composers={composers} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
+            <Main composers={composersToDisplay} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
             <Footer />
         </div>
     )
+}
+
+function hasAnythingToDisplay(composer, displaySettings) {
+    return displaySettings.historicalContext ||
+        displaySettings.genres ||
+        displaySettings.lifetimes && composer.hasKnownLifetime() ||
+        displaySettings.publications && composer.publications.length > 0;
 }
