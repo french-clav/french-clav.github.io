@@ -1,0 +1,61 @@
+.publication-marker {
+    top: 0;
+    height: 100%;
+    width: 5px;
+    padding: 0;
+    border-radius: 3px;
+    position: absolute;
+
+    background-color: #459b5c;
+    border: 1px solid #4e4e4e;
+    opacity: 0.3;
+
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+
+    cursor: pointer;
+
+    transition: opacity 0.08s;
+}
+
+.publication-marker::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    left: -150%;
+    width: 400%;
+}
+
+.publication-marker:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.publication-marker-tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 20px;
+    padding: 10px 14px 10px 14px;
+    z-index: 1;
+
+    background-color: white;
+    border: 1px solid #e1e5e8;
+    border-radius: 3px 7px 7px 7px;
+    box-shadow: 0 5px 6px -1px rgba(0, 0, 0, 0.1);
+
+    display: none;
+}
+
+.publication-marker:hover+.publication-marker-tooltip {
+    display: block;
+}
+
+.publication-marker-tooltip-title {
+    font-weight: 600;
+}
+
+.publication-marker-tooltip-timestamp {
+    margin-top: 7px;
+    font-size: 0.8em;
+}

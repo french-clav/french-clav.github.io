@@ -36,7 +36,11 @@ module.exports = {
                     header: true,
                     skipEmptyLines: true
                 }
-            }
+            },
+            {
+                test: /\.(png|jpe?g|svg|gif)$/,
+                type: "asset/resource",
+            },
         ]
     }
 }

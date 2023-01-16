@@ -1,4 +1,5 @@
 import React from "react";
+import "../../extensions/numberExtensions.js";
 import "../../styles/timeline/composerLifetime.css";
 
 export default function ComposerLifetime(props) {

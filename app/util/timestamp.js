@@ -27,7 +27,7 @@ export default class Timestamp {
         if (typeof input === 'string' || input instanceof String) {
             const match = input.match(/^(?<approximate>~)?(?<date>\d{1,4}(?<ext>-\d{2}-\d{2})?)$/);
             this.date = new Date(match.groups.date);
-            this.onlyYear = !!match.groups.ext;
+            this.onlyYear = !match.groups.ext;
             this.approximate = !!match.groups.approximate;
         }
     }
@@ -54,9 +54,12 @@ export default class Timestamp {
     }
 
     toString() {
-        return this.onlyYear
+        const approxPart = this.approximate ? "ок. " : "";
+        const datePart = this.onlyYear
             ? this.date.getFullYear().toString()
             : this.date.toLocaleDateString();
+
+        return `${approxPart}${datePart}`;
     }
 
     valueOf() {
