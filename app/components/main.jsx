@@ -1,27 +1,14 @@
 import React, { useState } from "react";
-import Repository from "../data/respository.js";
 import "../styles/main.css";
 import DisplaySettingsPanel from "./DisplaySettingsPanel.jsx";
 import Timeline from "./timeline/Timeline.jsx";
 
-const defaultDisplaySettings = {
-    succession: false,
-    publications: true,
-    lifetimes: true,
-    historicalContext: false,
-    genres: false
-}
-
-export default function Main() {
-    const composers = Repository.getComposers();
-
-    const [displaySettings, setDisplaySettings] = useState(defaultDisplaySettings);
-
+export default function Main(props) {
     return (
         <main className="main relative xy-centerer">
             <div className="relative xy-centerer">
-                <Timeline composers={composers} displaySettings={displaySettings} />
-                <DisplaySettingsPanel displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
+                <Timeline composers={props.composers} displaySettings={props.displaySettings} />
+                <DisplaySettingsPanel displaySettings={props.displaySettings} setDisplaySettings={props.setDisplaySettings} />
             </div>
         </main>
     )
