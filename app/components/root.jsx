@@ -4,18 +4,11 @@ import Footer from "./Footer.jsx"
 import Main from "./Main.jsx"
 import Repository from "../data/respository.js"
 import "../styles/root.css"
-
-const defaultDisplaySettings = {
-    succession: false,
-    publications: true,
-    lifetimes: true,
-    historicalContext: false,
-    genres: false
-}
+import useDisplaySettings from "../hooks/useDisplaySettings.js"
 
 export default function Root() {
     const composers = Repository.composers;
-    const [displaySettings, setDisplaySettings] = useState(defaultDisplaySettings);
+    const [displaySettings, setDisplaySettings] = useDisplaySettings();
 
     return (
         <div id="root">

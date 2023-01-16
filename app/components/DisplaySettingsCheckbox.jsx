@@ -13,7 +13,7 @@ export default function DisplaySettingsCheckbox(props) {
             <input
                 type="checkbox"
                 checked={displaySettings[settingsKey]}
-                onChange={e => setDisplaySettings(displaySettings => ({ ...displaySettings, [settingsKey]: e.target.checked }))}
+                onChange={e => setDisplaySettings({ ...displaySettings, [settingsKey]: e.target.checked })}
             />
             <span>{title}</span>
         </label>

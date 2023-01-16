@@ -9,6 +9,9 @@ export default function DisplaySettingsPanel(props) {
     return (
         <div className="display-settings-panel">
             <section>
+                <DisplaySettingsCheckbox displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} settingsKey="succession" title="Преемственность" />
+            </section>
+            <section>
                 <DisplaySettingsCheckbox displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} settingsKey="lifetimes" title="Годы жизни" />
             </section>
             <section>
