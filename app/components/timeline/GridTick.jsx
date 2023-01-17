@@ -1,9 +1,9 @@
-import React from "react";
-import "../../styles/timeline/tick.css";
+import React from "react"
+import "../../styles/timeline/tick.css"
 import "../../extensions/numberExtensions.js"
 
 export default function GridTick(props) {
-    const opacity = props.opacity ?? 1;
+    const opacity = props.opacity ?? 1
 
     return (
         <>

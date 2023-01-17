@@ -1,16 +1,16 @@
-import React from "react";
-import "../../styles/timeline/timeline.css";
+import React from "react"
+import "../../styles/timeline/timeline.css"
 import "../../extensions/arrayExtensions.js"
-import TimelineGrid from "./TimelineGrid.jsx";
-import ComposerRow from "./ComposerRow.jsx";
-import TimestampRange from "../../util/timestampRange.js";
+import TimelineGrid from "./TimelineGrid.jsx"
+import ComposerRow from "./ComposerRow.jsx"
+import TimestampRange from "../../util/timestampRange.js"
 
 export default function Timeline(props) {
-    const range = rangeToFitAll(props.composers);
+    const range = rangeToFitAll(props.composers)
 
-    const composersWithLifetime = props.composers.filter(c => c.hasKnownLifetime()).orderBy(c => c.birth);
-    const composersWithoutLifetime = props.composers.filter(c => !c.hasKnownLifetime()).orderBy(c => c.name);
-    const composers = [...composersWithLifetime, ...composersWithoutLifetime];
+    const composersWithLifetime = props.composers.filter(c => c.hasKnownLifetime()).orderBy(c => c.birth)
+    const composersWithoutLifetime = props.composers.filter(c => !c.hasKnownLifetime()).orderBy(c => c.name)
+    const composers = [...composersWithLifetime, ...composersWithoutLifetime]
 
     return (
         <div className="timeline relative">
@@ -23,7 +23,7 @@ export default function Timeline(props) {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 function rangeToFitAll(composers) {
@@ -37,7 +37,7 @@ function rangeToFitAll(composers) {
             ])
         ])
         .filter(x => x != null)
-        .orderBy(x => x);
+        .orderBy(x => x)
 
-    return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1));
+    return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1))
 }

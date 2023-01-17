@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export default function DisplaySettingsCheckbox(props) {
     const {
@@ -6,7 +6,7 @@ export default function DisplaySettingsCheckbox(props) {
         setDisplaySettings,
         settingsKey,
         title
-    } = props;
+    } = props
 
     return (
         <label className="prevent-select">
@@ -17,5 +17,5 @@ export default function DisplaySettingsCheckbox(props) {
             />
             <span>{title}</span>
         </label>
-    );
+    )
 }

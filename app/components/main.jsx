@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "../styles/main.css";
-import DisplaySettingsPanel from "./DisplaySettingsPanel.jsx";
-import Timeline from "./timeline/Timeline.jsx";
+import React, { useState } from "react"
+import "../styles/main.css"
+import DisplaySettingsPanel from "./DisplaySettingsPanel.jsx"
+import Timeline from "./timeline/Timeline.jsx"
 
 export default function Main(props) {
     return (

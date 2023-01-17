@@ -1,13 +1,13 @@
-import React from "react";
-import "../../extensions/numberExtensions.js";
-import "../../styles/timeline/publicationMarker.css";
+import React from "react"
+import "../../extensions/numberExtensions.js"
+import "../../styles/timeline/publicationMarker.css"
 
 export default function PublicationMarker(props) {
-    const { publication } = props;
+    const { publication } = props
 
     const style = {
         left: props.range.inverseLerp(publication.timestamp).toPercent()
-    };
+    }
 
     return (
         <>
@@ -17,5 +17,5 @@ export default function PublicationMarker(props) {
                 <div className="publication-marker-tooltip-timestamp">{publication.timestamp.toString()}</div>
             </div>
         </>
-    );
+    )
 }

@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
-import "../styles/displaySettingsPanel.css";
-import DisplaySettingsCheckbox from "./DisplaySettingsCheckbox.jsx";
+import "../styles/displaySettingsPanel.css"
+import DisplaySettingsCheckbox from "./DisplaySettingsCheckbox.jsx"
 
 export default function DisplaySettingsPanel(props) {
-    const { displaySettings, setDisplaySettings } = props;
+    const { displaySettings, setDisplaySettings } = props
 
     return (
         <div className="display-settings-panel">
@@ -24,5 +24,5 @@ export default function DisplaySettingsPanel(props) {
                 <DisplaySettingsCheckbox displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} settingsKey="genres" title="Жанровость" />
             </section>
         </div>
-    );
+    )
 }
