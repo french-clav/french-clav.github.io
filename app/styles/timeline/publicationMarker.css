@@ -17,6 +17,15 @@
     transition: opacity 0.12s;
 }
 
+.publication-marker-exit-active {
+    opacity: 0;
+}
+
+.publication-marker-exit-done {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .publication-marker::before {
     content: "";
     display: inline-block;

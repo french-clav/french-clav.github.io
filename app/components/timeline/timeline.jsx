@@ -1,33 +1,44 @@
-import React from "react"
+import React, { useRef } from "react"
 import "../../styles/timeline/timeline.css"
 import "../../extensions/arrayExtensions.js"
 import TimelineGrid from "./TimelineGrid.jsx"
 import ComposerRow from "./ComposerRow.jsx"
 import TimestampRange from "../../util/timestampRange.js"
+import { CSSTransition } from "react-transition-group"
 
 export default function Timeline(props) {
-    const range = rangeToFitAll(props.composers)
+    const range = rangeToFitAll(props.composerCards)
 
-    const composersWithLifetime = props.composers.filter(c => c.hasKnownLifetime()).orderBy(c => c.birth)
-    const composersWithoutLifetime = props.composers.filter(c => !c.hasKnownLifetime()).orderBy(c => c.name)
-    const composers = [...composersWithLifetime, ...composersWithoutLifetime]
+    const cardsWithLifetime = props.composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth)
+    const cardsWithoutLifetime = props.composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
+    const composerCards = [...cardsWithLifetime, ...cardsWithoutLifetime]
+
+    const timelineRef = useRef()
 
     return (
-        <div className="timeline relative">
-            <TimelineGrid range={range} />
-            <div className="zero-pos composers-scroller">
-                <div className="composers-container">
-                    {composers.map(composer =>
-                        <ComposerRow key={composer.name} composer={composer} range={range} displaySettings={props.displaySettings} />
-                    )}
+        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.displayed)} timeout={250} classNames="timeline">
+            <div ref={timelineRef} className="timeline relative">
+                <TimelineGrid range={range} />
+                <div className="zero-pos composers-scroller">
+                    <div className="composers-container">
+                        {composerCards.map(card =>
+                            <ComposerRow key={card.composer.name} composerCard={card} range={range} displaySettings={props.displaySettings} />
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </CSSTransition>
     )
 }
 
-function rangeToFitAll(composers) {
-    const timestamps = composers
+function rangeToFitAll(composerCards) {
+    if (!composerCards.some(c => c.displayed)) {
+        return new TimestampRange("1601", "1823")
+    }
+
+    const timestamps = composerCards
+        .filter(c => c.displayed)
+        .map(c => c.composer)
         .flatMap(c => [
             c.birth,
             c.death,

@@ -1,7 +1,9 @@
 .composer-ghost {
+    left: 0;
     margin-left: -3px;
     margin-right: -3px;
     height: 100%;
+    width: 100%;
     padding-left: 8px;
     position: absolute;
 
@@ -24,7 +26,7 @@
     cursor: pointer;
 }
 
-.composer-ghost p {
+.composer-ghost .composer-name {
     margin: 0;
     margin-left: 4px;
 }

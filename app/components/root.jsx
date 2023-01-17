@@ -8,14 +8,17 @@ import useDisplaySettings from "../hooks/useDisplaySettings.js"
 
 export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
-    const allComposers = Repository.composers
 
-    const composersToDisplay = allComposers.filter(c => hasAnythingToDisplay(c, displaySettings))
+    const composers = Repository.composers
+    const composerCards = composers.map(c => ({
+        composer: c,
+        displayed: hasAnythingToDisplay(c, displaySettings)
+    }))
 
     return (
         <div id="root">
             <Header />
-            <Main composers={composersToDisplay} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
+            <Main composerCards={composerCards} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
             <Footer />
         </div>
     )

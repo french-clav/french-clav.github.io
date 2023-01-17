@@ -2,8 +2,12 @@ import React from "react"
 import GridTick from "./GridTick.jsx"
 import "../../styles/timeline/grid.css"
 
-function getOffset(tick, tickCount) {
-    return tick / (tickCount - 1)
+function makeTick(tickIdx, tickCount, range) {
+    const t = tickIdx / (tickCount - 1)
+    const timestamp = range.lerp(t)
+    const tSnappedToYear = range.inverseLerp(timestamp.startOfYear())
+
+    return { t: tSnappedToYear, year: timestamp.year }
 }
 
 export default function TimelineGrid(props) {
@@ -14,11 +18,11 @@ export default function TimelineGrid(props) {
 
     const ticks = []
     for (let tickIdx = 0; tickIdx < tickCount; tickIdx++) {
-        const t = getOffset(tickIdx, tickCount)
+        const { t, year } = makeTick(tickIdx, tickCount, props.range)
         ticks.push(
             <GridTick
                 key={tickIdx}
-                year={props.range.lerp(t).year}
+                year={year}
                 offset={t}
                 showLabel={true}
             />
@@ -30,7 +34,7 @@ export default function TimelineGrid(props) {
         intermediateTicks.push(
             <GridTick
                 key={tickIdx}
-                offset={getOffset(tickIdx, tickCount)}
+                offset={makeTick(tickIdx, tickCount, props.range).t}
                 opacity={0.5}
             />
         )

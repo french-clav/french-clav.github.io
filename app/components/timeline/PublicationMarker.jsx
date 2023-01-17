@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useRef } from "react"
+import { CSSTransition } from "react-transition-group"
 import "../../extensions/numberExtensions.js"
 import "../../styles/timeline/publicationMarker.css"
 
@@ -9,13 +10,17 @@ export default function PublicationMarker(props) {
         left: props.range.inverseLerp(publication.timestamp).toPercent()
     }
 
+    const markerRef = useRef()
+
     return (
-        <>
-            <div className="publication-marker" style={style} />
-            <div className="publication-marker-tooltip" style={style}>
-                <div className="publication-marker-tooltip-title">Издание нот</div>
-                <div className="publication-marker-tooltip-timestamp">{publication.timestamp.toString()}</div>
-            </div>
-        </>
+        <CSSTransition nodeRef={markerRef} in={props.displayed} timeout={250} classNames="publication-marker">
+            <>
+                <div ref={markerRef} className="publication-marker" style={style} />
+                <div className="publication-marker-tooltip prevent-select" style={style}>
+                    <div className="publication-marker-tooltip-title">Издание нот</div>
+                    <div className="publication-marker-tooltip-timestamp">{publication.timestamp.toString()}</div>
+                </div>
+            </>
+        </CSSTransition>
     )
 }

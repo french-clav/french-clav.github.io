@@ -1,5 +1,5 @@
-import { useState } from "react";
-import _ from "lodash";
+import { useState } from "react"
+import _ from "lodash"
 
 const zeroDisplaySettings = {
     succession: false,
@@ -16,22 +16,22 @@ const initialDisplaySettings = {
 }
 
 export default function useDisplaySettings() {
-    const [value, setValue] = useState(initialDisplaySettings);
+    const [value, setValue] = useState(initialDisplaySettings)
 
     const filter = (newValue) => {
         if (!value.succession && newValue.succession) {
-            return { ...zeroDisplaySettings, succession: true };
+            return { ...zeroDisplaySettings, succession: true }
         }
 
-        const anySettingBesidesSuccessionSet = !_.isEqual({ ...newValue, succession: false }, zeroDisplaySettings);
+        const anySettingBesidesSuccessionSet = !_.isEqual({ ...newValue, succession: false }, zeroDisplaySettings)
         if (value.succession && anySettingBesidesSuccessionSet) {
-            return { ...newValue, succession: false };
+            return { ...newValue, succession: false }
         }
 
-        return newValue;
+        return newValue
     }
 
-    const setDisplaySettings = (newValue) => setValue(filter(newValue));
+    const setDisplaySettings = (newValue) => setValue(filter(newValue))
 
-    return [value, setDisplaySettings];
+    return [value, setDisplaySettings]
 }

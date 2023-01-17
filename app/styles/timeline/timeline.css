@@ -3,24 +3,11 @@
     min-width: 60%;
     max-width: 90%;
     height: 100%;
+    transition: opacity 0.25s;
 }
 
-* {
-    scrollbar-width: thin;
-}
-
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-    width: 8px;
-}
-
-*::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: #b4b4b4;
-    border-radius: 20px;
+.timeline-exit-done, .timeline-exit-active {
+    opacity: 0;
 }
 
 .composers-scroller {

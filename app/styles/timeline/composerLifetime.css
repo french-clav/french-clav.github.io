@@ -1,7 +1,6 @@
 .composer-lifetime {
     top: 0;
     height: 100%;
-    padding-left: 8px;
     border-radius: 5px;
     position: absolute;
 
@@ -25,20 +24,6 @@
     cursor: pointer;
 }
 
-.composer-lifetime.pub {
-    border: 1px solid #4e4e4e;
-    height: 20%;
-    bottom: 0;
-    top: auto;
-}
-
-.composer-lifetime p {
+.composer-lifetime .composer-name {
     margin: 0;
-}
-
-.composer-lifetime .years {
-    font-weight: 500;
-    font-size: 0.8em;
-    color: #696969;
-    margin-top: 5px;
 }
