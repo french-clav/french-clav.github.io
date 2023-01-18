@@ -8,3 +8,9 @@
     border-left: 1px solid #0000002b;
     box-shadow: inset 10px 0 5px -10px rgb(0 0 0 / 20%);
 }
+
+.composer-modal-infobox .composer-name {
+    font-weight: 700;
+    font-size: 1.5em;
+    margin-bottom: 25px;
+}
