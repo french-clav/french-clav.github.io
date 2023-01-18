@@ -1,0 +1,13 @@
+import React, { useRef } from "react"
+import { CSSTransition } from "react-transition-group"
+import "../../styles/composerModal/overlay.css"
+
+export default function Overlay(props) {
+    const ref = useRef()
+
+    return (
+        <CSSTransition nodeRef={ref} in={props.displayed} timeout={250} classNames="overlay" mountOnEnter>
+            <div ref={ref} className="overlay"/>
+        </CSSTransition>
+    )
+}

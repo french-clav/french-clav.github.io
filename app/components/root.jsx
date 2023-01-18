@@ -1,10 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Header from "./Header.jsx"
 import Footer from "./Footer.jsx"
 import Main from "./Main.jsx"
 import Repository from "../data/respository.js"
 import "../styles/root.css"
 import useDisplaySettings from "../hooks/useDisplaySettings.js"
+import ComposerModal from "./composerModal/ComposerModal.jsx"
+import Overlay from "./composerModal/Overlay.jsx"
 
 export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
@@ -14,11 +16,11 @@ export default function Root() {
         composer: c,
         displayed: hasAnythingToDisplay(c, displaySettings)
     }))
-
     return (
         <div id="root">
             <Header />
             <Main composerCards={composerCards} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
+            <ComposerModal />
             <Footer />
         </div>
     )

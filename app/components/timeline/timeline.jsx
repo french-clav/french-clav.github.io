@@ -26,6 +26,7 @@ export default function Timeline(props) {
                         )}
                     </div>
                 </div>
+                <div className="timeline-top-bottom-shadows" />
             </div>
         </CSSTransition>
     )

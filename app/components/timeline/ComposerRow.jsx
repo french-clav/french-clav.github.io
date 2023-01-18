@@ -15,7 +15,7 @@ export default function ComposerRow(props) {
     return (
         <CSSTransition nodeRef={rowRef} in={props.composerCard.displayed} timeout={250} classNames="composer-row">
             <div ref={rowRef} className="composer-row">
-                <ComposerCard composer={composer} range={props.range} type={type} />
+                <ComposerCard composer={composer} range={props.range} type={type} displaySettings={props.displaySettings} />
                 {composer.publications.map(p =>
                     <PublicationMarker key={p.timestamp} publication={p} range={props.range} displayed={props.displaySettings.publications} />
                 )}

@@ -24,7 +24,7 @@ export default function TimelineGrid(props) {
                 key={tickIdx}
                 year={year}
                 offset={t}
-                showLabel={true}
+                showLabel
             />
         )
     }

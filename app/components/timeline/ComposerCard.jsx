@@ -5,12 +5,9 @@ import "../../styles/timeline/composerLifetime.css"
 import "../../styles/timeline/composerGhost.css"
 import "../../styles/timeline/composerCard.css"
 
-export default function ComposerCard(props) {
-    const composer = props.composer
-    const type = props.type
-
-    const style = type == "lifetime"
-        ? calcLifetimeStyle(props.composer, props.range)
+export default function ComposerCard({ composer, range, type, displaySettings }) {
+    const style = type === "lifetime"
+        ? calcLifetimeStyle(composer, range)
         : null
 
     const classNames = {
@@ -21,7 +18,7 @@ export default function ComposerCard(props) {
     return (
         <div className={`composer-card ${classNames[type]}`} style={style}>
             <p className="composer-name">{composer.name}</p>
-            <ComposerYears composer={composer} displayed={type == "lifetime"}/>
+            <ComposerYears composer={composer} displayed={displaySettings.lifetimes}/>
         </div>
     )
 }

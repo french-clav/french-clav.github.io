@@ -1,0 +1,22 @@
+.composer-modal-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 70vh;
+    max-width: 100%;
+
+    background-color: white;
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.295);
+
+    transition: width 0.35s;
+}
+
+.composer-modal-panel-exit-active {
+    width: 0;
+}
+
+.composer-modal-panel-exit-done {
+    width: 0;
+    visibility: hidden;
+}

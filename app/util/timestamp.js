@@ -36,7 +36,7 @@ export default class Timestamp {
         if (input == null)
             return input
 
-        if (input == '')
+        if (input === '')
             return null
 
         return new Timestamp(input)
