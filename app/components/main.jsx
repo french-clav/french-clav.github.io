@@ -8,7 +8,7 @@ export default function Main(props) {
         <main className="main relative xy-centerer">
             <div className="relative xy-centerer">
                 <Timeline composerCards={props.composerCards} displaySettings={props.displaySettings} />
-                {!props.composerCards.some(c => c.displayed) &&
+                {!props.composerCards.some(c => c.show) &&
                     <div className="relative zero-pos xy-centerer">
                         <div className="no-data-placeholder prevent-select">Выберете параметры для отображения</div>
                     </div>

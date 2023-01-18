@@ -16,7 +16,7 @@ export default function Timeline(props) {
     const timelineRef = useRef()
 
     return (
-        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.displayed)} timeout={250} classNames="timeline">
+        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.show)} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
                 <TimelineGrid range={range} />
                 <div className="zero-pos composers-scroller">
@@ -33,12 +33,12 @@ export default function Timeline(props) {
 }
 
 function rangeToFitAll(composerCards) {
-    if (!composerCards.some(c => c.displayed)) {
+    if (!composerCards.some(c => c.show)) {
         return new TimestampRange("1601", "1823")
     }
 
     const timestamps = composerCards
-        .filter(c => c.displayed)
+        .filter(c => c.show)
         .map(c => c.composer)
         .flatMap(c => [
             c.birth,

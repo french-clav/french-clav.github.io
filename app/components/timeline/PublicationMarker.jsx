@@ -13,7 +13,7 @@ export default function PublicationMarker(props) {
     const markerRef = useRef()
 
     return (
-        <CSSTransition nodeRef={markerRef} in={props.displayed} timeout={250} classNames="publication-marker">
+        <CSSTransition nodeRef={markerRef} in={props.show} timeout={250} classNames="publication-marker">
             <>
                 <div ref={markerRef} className="publication-marker" style={style} />
                 <div className="publication-marker-tooltip prevent-select" style={style}>

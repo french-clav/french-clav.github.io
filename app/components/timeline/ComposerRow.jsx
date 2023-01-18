@@ -13,11 +13,11 @@ export default function ComposerRow(props) {
         : "ghost"
 
     return (
-        <CSSTransition nodeRef={rowRef} in={props.composerCard.displayed} timeout={250} classNames="composer-row">
+        <CSSTransition nodeRef={rowRef} in={props.composerCard.show} timeout={250} classNames="composer-row">
             <div ref={rowRef} className="composer-row">
                 <ComposerCard composer={composer} range={props.range} type={type} displaySettings={props.displaySettings} />
                 {composer.publications.map(p =>
-                    <PublicationMarker key={p.timestamp} publication={p} range={props.range} displayed={props.displaySettings.publications} />
+                    <PublicationMarker key={p.timestamp} publication={p} range={props.range} show={props.displaySettings.publications} />
                 )}
             </div>
         </CSSTransition>

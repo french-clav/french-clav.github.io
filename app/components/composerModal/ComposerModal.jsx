@@ -5,8 +5,8 @@ import ComposerModalPanel from "./ComposerModalPanel.jsx"
 export default function ComposerModal(props) {
     return (
         <>
-            <Overlay displayed={props.displayed} />
-            <ComposerModalPanel displayed={props.displayed} />
+            <Overlay show={props.show} />
+            <ComposerModalPanel show={props.show} />
         </>
     )
 }

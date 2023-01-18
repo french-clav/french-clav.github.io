@@ -18,7 +18,7 @@ export default function ComposerCard({ composer, range, type, displaySettings })
     return (
         <div className={`composer-card ${classNames[type]}`} style={style}>
             <p className="composer-name">{composer.name}</p>
-            <ComposerYears composer={composer} displayed={displaySettings.lifetimes}/>
+            <ComposerYears composer={composer} show={displaySettings.lifetimes}/>
         </div>
     )
 }

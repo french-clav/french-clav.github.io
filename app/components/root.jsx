@@ -14,7 +14,7 @@ export default function Root() {
     const composers = Repository.composers
     const composerCards = composers.map(c => ({
         composer: c,
-        displayed: hasAnythingToDisplay(c, displaySettings)
+        show: hasAnythingToDisplay(c, displaySettings)
     }))
     return (
         <div id="root">
