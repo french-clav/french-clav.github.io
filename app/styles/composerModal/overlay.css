@@ -6,17 +6,18 @@
     left: 0;
 
     background-color: rgba(0, 0, 0, 0.33);
-    opacity: 1;
     cursor: pointer;
 
     transition: opacity 0.25s;
-}
-
-.overlay-exit-active {
-    opacity: 0;
-}
-
-.overlay-exit-done {
+    
     opacity: 0;
     visibility: hidden;
+}
+
+.overlay-exit-active, .overlay-enter-active, .overlay-enter-done {
+    visibility: visible;
+}
+
+.overlay-enter-active, .overlay-enter-done {
+    opacity: 1;
 }

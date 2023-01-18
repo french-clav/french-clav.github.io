@@ -22,7 +22,13 @@ export default function Timeline(props) {
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
                         {composerCards.map(card =>
-                            <ComposerRow key={card.composer.name} composerCard={card} range={range} displaySettings={props.displaySettings} />
+                            <ComposerRow
+                                key={card.composer.name}
+                                composerCard={card}
+                                range={range}
+                                displaySettings={props.displaySettings}
+                                openComposerModal={props.openComposerModal}
+                            />
                         )}
                     </div>
                 </div>

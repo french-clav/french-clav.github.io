@@ -13,7 +13,7 @@
     border: 1px solid #89b496;
     color: #4e4e4e;
 
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 0 #ffffff00, 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 
     overflow: hidden;
     white-space: nowrap;
@@ -26,4 +26,9 @@
 
 .composer-lifetime .composer-name {
     margin: 0;
+}
+
+.composer-lifetime:hover {
+    transition: box-shadow 0.15s;
+    box-shadow: 0 0 5px 0 #89b496, 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }

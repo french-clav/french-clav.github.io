@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Header from "./Header.jsx"
 import Footer from "./Footer.jsx"
 import Main from "./Main.jsx"
@@ -6,21 +6,32 @@ import Repository from "../data/respository.js"
 import "../styles/root.css"
 import useDisplaySettings from "../hooks/useDisplaySettings.js"
 import ComposerModal from "./composerModal/ComposerModal.jsx"
-import Overlay from "./composerModal/Overlay.jsx"
+import useComposerModalState from "../hooks/useComposerModalState.js"
 
 export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
+    const [composerModalState, openComposerModal, closeComposerModal] = useComposerModalState()
 
-    const composers = Repository.composers
-    const composerCards = composers.map(c => ({
+    const composerCards = Repository.composers.map(c => ({
         composer: c,
         show: hasAnythingToDisplay(c, displaySettings)
     }))
+
     return (
         <div id="root">
             <Header />
-            <Main composerCards={composerCards} displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} />
-            <ComposerModal />
+            <Main
+                composerCards={composerCards}
+                displaySettings={displaySettings}
+                setDisplaySettings={setDisplaySettings}
+                openComposerModal={openComposerModal}
+            />
+            <ComposerModal
+                show={composerModalState.isOpen}
+                selectedComposer={composerModalState.selectedComposer}
+                selectedPublication={composerModalState.selectedPublication}
+                closeModal={closeComposerModal}
+            />
             <Footer />
         </div>
     )

@@ -1,0 +1,16 @@
+.composer-modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px 28px 0 0;
+    width: 30px;
+    opacity: 0.2;
+
+    cursor: pointer;
+
+    transition: opacity 0.12s;
+}
+
+.composer-modal-close:hover {
+    opacity: 0.5;
+}

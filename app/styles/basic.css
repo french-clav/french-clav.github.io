@@ -6,6 +6,11 @@ body {
     font-family: Raleway;
 }
 
+*::selection {
+    color: white;
+    background-color: #499661;
+}
+
 .xy-centerer {
     width: 100%;
     height: 100%;
@@ -30,4 +35,8 @@ body {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+}
+
+.pointer-transparent {
+    pointer-events: none;
+}

@@ -1,15 +1,15 @@
-import Timestamp from "../util/timestamp.js";
+import Timestamp from "../util/timestamp.js"
 
 export default class Publication {
     constructor(timestamp) {
-        this.timestamp = new Timestamp(timestamp);
+        this.timestamp = new Timestamp(timestamp)
     }
 
     get minTimestamp() {
-        return this.timestamp;
+        return this.timestamp
     }
 
     get maxTimestamp() {
-        return this.timestamp;
+        return this.timestamp
     }
 }

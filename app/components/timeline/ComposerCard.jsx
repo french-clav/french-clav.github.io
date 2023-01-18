@@ -5,7 +5,7 @@ import "../../styles/timeline/composerLifetime.css"
 import "../../styles/timeline/composerGhost.css"
 import "../../styles/timeline/composerCard.css"
 
-export default function ComposerCard({ composer, range, type, displaySettings }) {
+export default function ComposerCard({ composer, range, type, displaySettings, openComposerModal }) {
     const style = type === "lifetime"
         ? calcLifetimeStyle(composer, range)
         : null
@@ -16,7 +16,7 @@ export default function ComposerCard({ composer, range, type, displaySettings })
     }
 
     return (
-        <div className={`composer-card ${classNames[type]}`} style={style}>
+        <div className={`composer-card ${classNames[type]}`} style={style} onClick={() => openComposerModal(composer)}>
             <p className="composer-name">{composer.name}</p>
             <ComposerYears composer={composer} show={displaySettings.lifetimes}/>
         </div>
