@@ -1,6 +1,6 @@
 import React from "react"
 import Header from "./Header.jsx"
-import Footer from "./Footer.jsx"
+import Footer from "./footer/Footer.jsx"
 import Main from "./Main.jsx"
 import Repository from "../data/respository.js"
 import "../styles/root.css"
@@ -32,7 +32,7 @@ export default function Root() {
                 selectedPublication={composerModalState.selectedPublication}
                 closeModal={closeComposerModal}
             />
-            <Footer />
+            <Footer composerCards={composerCards}/>
         </div>
     )
 }

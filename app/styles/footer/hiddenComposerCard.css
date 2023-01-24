@@ -1,0 +1,26 @@
+.hidden-composer-card {
+    display: inline-flex;
+    height: 17px;
+
+    font-size: 0.9em;
+
+    background-color: #f9f9f9;
+    color: #9f9f9f;
+    border-radius: 4px;
+    padding: 5px;
+
+    overflow: hidden;
+
+    transition: all 0.25s;
+    max-width: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.hidden-composer-card-enter-active, .hidden-composer-card-enter-done {
+    max-width: 100%;
+    margin: 5px;
+    padding: 5px;
+    opacity: 1;
+}
