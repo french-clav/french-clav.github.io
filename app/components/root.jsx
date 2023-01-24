@@ -32,7 +32,10 @@ export default function Root() {
                 selectedPublication={composerModalState.selectedPublication}
                 closeModal={closeComposerModal}
             />
-            <Footer composerCards={composerCards}/>
+            <Footer
+                composerCards={composerCards}
+                openComposerModal={openComposerModal}
+            />
         </div>
     )
 }

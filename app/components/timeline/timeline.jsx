@@ -6,28 +6,25 @@ import ComposerRow from "./ComposerRow.jsx"
 import TimestampRange from "../../util/timestampRange.js"
 import { CSSTransition } from "react-transition-group"
 
-export default function Timeline(props) {
-    const range = rangeToFitAll(props.composerCards)
-
-    const cardsWithLifetime = props.composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth)
-    const cardsWithoutLifetime = props.composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
-    const composerCards = [...cardsWithLifetime, ...cardsWithoutLifetime]
+export default function Timeline({ composerCards, displaySettings, openComposerModal }) {
+    const range = rangeToFitAll(composerCards)
+    const orderedComposerCards = orderComposerCards(composerCards)
 
     const timelineRef = useRef()
 
     return (
-        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.show)} timeout={250} classNames="timeline">
+        <CSSTransition nodeRef={timelineRef} in={orderedComposerCards.some(c => c.show)} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
                 <TimelineGrid range={range} />
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
-                        {composerCards.map(card =>
+                        {orderedComposerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
                                 composerCard={card}
                                 range={range}
-                                displaySettings={props.displaySettings}
-                                openComposerModal={props.openComposerModal}
+                                displaySettings={displaySettings}
+                                openComposerModal={openComposerModal}
                             />
                         )}
                     </div>
@@ -58,4 +55,11 @@ function rangeToFitAll(composerCards) {
         .orderBy(x => x)
 
     return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1))
+}
+
+function orderComposerCards(composerCards) {
+    return [
+        ...composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth),
+        ...composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
+    ]
 }
