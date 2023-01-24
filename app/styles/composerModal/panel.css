@@ -34,3 +34,12 @@
 .composer-modal-content {
     padding: 40px;
 }
+
+.composer-modal-panel .composer-name {
+    font-weight: 700;
+    font-size: 1.61em;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #00000012;
+    padding-bottom: 5px;
+    color: #3a3a3a;
+}

@@ -17,7 +17,10 @@ export default function useComposerModalState() {
         setOpen(true)
     }
 
-    const close = () => { setOpen(false) }
+    const close = () => {
+        setSelectedPublication(null)
+        setOpen(false)
+    }
 
     return [state, open, close]
 }
