@@ -5,6 +5,7 @@ import TimelineGrid from "./TimelineGrid.jsx"
 import ComposerRow from "./ComposerRow.jsx"
 import TimestampRange from "../../util/timestampRange.js"
 import { CSSTransition } from "react-transition-group"
+import HistoricalContextRow from "./HistoricalContextRow.jsx"
 
 export default function Timeline({ composerCards, displaySettings, openComposerModal }) {
     const range = rangeToFitAll(composerCards)
@@ -18,6 +19,9 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                 <TimelineGrid range={range} />
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
+                        {displaySettings.historicalContext &&
+                            <HistoricalContextRow range={range} />
+                        }
                         {orderedComposerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
