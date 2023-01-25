@@ -1,12 +1,12 @@
 .composer-row {
     margin-top: 10px;
-    position: relative;
     height: 54px;
+    width: 100%;
 
-    transition-property: margin, height, opacity;
+    transition-property: margin, height, opacity, transform;
     transition-duration: 0.3s;
     transition-timing-function: ease;
-    will-change: margin, height;
+    will-change: margin, height, transform;
 }
 
 .composer-row-exit-active, .composer-row-exit-done {

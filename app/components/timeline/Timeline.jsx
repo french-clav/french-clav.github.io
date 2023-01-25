@@ -10,20 +10,22 @@ import HistoricalContextRowSpacer from "./historicalContext/HistoricalContextRow
 
 export default function Timeline({ composerCards, displaySettings, openComposerModal, historicalEpochs }) {
     const viewportRange = rangeToFitAll(composerCards)
-    const orderedComposerCards = orderComposerCards(composerCards)
+    const orderedComposerCards = orderComposerCards(composerCards, displaySettings)
 
     const timelineRef = useRef()
 
     return (
-        <CSSTransition nodeRef={timelineRef} in={orderedComposerCards.some(c => c.show)} timeout={250} classNames="timeline">
+        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.show)} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
                 <TimelineGrid viewportRange={viewportRange} maxTicks={10} />
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
                         <HistoricalContextRowSpacer show={displaySettings.historicalContext} />
-                        {orderedComposerCards.map(card =>
+                        {composerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
+                                orderWithinContainer={composerCards.filter(c => c.show).indexOf(card)}
+                                desiredOrder={orderedComposerCards.indexOf(card)}
                                 composerCard={card}
                                 viewportRange={viewportRange}
                                 displaySettings={displaySettings}
@@ -62,9 +64,20 @@ function rangeToFitAll(composerCards) {
     return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1))
 }
 
-function orderComposerCards(composerCards) {
-    return [
-        ...composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth),
-        ...composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
-    ]
+function orderComposerCards(composerCards, displaySettings) {
+    if (displaySettings.lifetimes) {
+        return [
+            ...composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth),
+            ...composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
+        ]
+    }
+
+    if (displaySettings.publications) {
+        return [
+            ...composerCards.filter(c => c.composer.publications.length > 0).orderBy(c => c.composer.publications.min(p => p.timestamp)),
+            ...composerCards.filter(c => c.composer.publications.length === 0).orderBy(c => c.composer.name)
+        ]
+    }
+
+    return composerCards
 }

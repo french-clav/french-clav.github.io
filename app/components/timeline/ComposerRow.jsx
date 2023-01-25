@@ -4,7 +4,15 @@ import "../../styles/timeline/composerRow.css"
 import PublicationMarker from "./PublicationMarker.jsx"
 import ComposerCard from "./ComposerCard.jsx"
 
-export default function ComposerRow({ composerCard, viewportRange, displaySettings, openComposerModal, historicalEpochs }) {
+export default function ComposerRow({
+    orderWithinContainer,
+    desiredOrder,
+    composerCard,
+    viewportRange,
+    displaySettings,
+    openComposerModal,
+    historicalEpochs
+}) {
     const rowRef = useRef()
 
     const composer = composerCard.composer
@@ -12,9 +20,17 @@ export default function ComposerRow({ composerCard, viewportRange, displaySettin
         ? "lifetime"
         : "ghost"
 
+    const rowHeight = 54
+    const rowMarginTop = 10
+    const orderDelta = desiredOrder - orderWithinContainer
+
+    const style = {
+        transform: composerCard.show ? `translateY(${orderDelta * (rowHeight + rowMarginTop)}px)` : ""
+    }
+
     return (
         <CSSTransition nodeRef={rowRef} in={composerCard.show} timeout={250} classNames="composer-row">
-            <div ref={rowRef} className="composer-row">
+            <div ref={rowRef} className="composer-row" style={style}>
                 <ComposerCard
                     composer={composer}
                     viewportRange={viewportRange}
