@@ -6,7 +6,7 @@
     transition-property: margin, height, opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease;
-    will-change: margin, height, opacity;
+    will-change: margin, height;
 }
 
 .composer-row-exit-active, .composer-row-exit-done {
