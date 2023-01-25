@@ -1,6 +1,6 @@
 .timeline {
-    width: 80vh;
-    min-width: 60%;
+    width: 1400px;
+    min-width: 70%;
     max-width: 90%;
     height: 100%;
     transition: opacity 0.25s;

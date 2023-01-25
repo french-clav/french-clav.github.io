@@ -5,10 +5,11 @@ import TimelineGrid from "./TimelineGrid.jsx"
 import ComposerRow from "./ComposerRow.jsx"
 import TimestampRange from "../../util/timestampRange.js"
 import { CSSTransition } from "react-transition-group"
-import HistoricalContextRow from "./HistoricalContextRow.jsx"
+import HistoricalContextRow from "./historicalContext/HistoricalContextRow.jsx"
+import HistoricalContextRowSpacer from "./historicalContext/HistoricalContextRowSpacer.jsx"
 
-export default function Timeline({ composerCards, displaySettings, openComposerModal }) {
-    const range = rangeToFitAll(composerCards)
+export default function Timeline({ composerCards, displaySettings, openComposerModal, historicalEpochs }) {
+    const viewportRange = rangeToFitAll(composerCards)
     const orderedComposerCards = orderComposerCards(composerCards)
 
     const timelineRef = useRef()
@@ -16,24 +17,24 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
     return (
         <CSSTransition nodeRef={timelineRef} in={orderedComposerCards.some(c => c.show)} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
-                <TimelineGrid range={range} />
+                <TimelineGrid viewportRange={viewportRange} maxTicks={10} />
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
-                        {displaySettings.historicalContext &&
-                            <HistoricalContextRow range={range} />
-                        }
+                        <HistoricalContextRowSpacer show={displaySettings.historicalContext} />
                         {orderedComposerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
                                 composerCard={card}
-                                range={range}
+                                viewportRange={viewportRange}
                                 displaySettings={displaySettings}
                                 openComposerModal={openComposerModal}
+                                historicalEpochs={historicalEpochs}
                             />
                         )}
                     </div>
                 </div>
-                <div className="timeline-top-bottom-shadows" />
+                <HistoricalContextRow epochs={historicalEpochs} viewportRange={viewportRange} show={displaySettings.historicalContext} />
+                <div className="zero-pos timeline-top-bottom-shadows" />
             </div>
         </CSSTransition>
     )

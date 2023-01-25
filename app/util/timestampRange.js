@@ -14,4 +14,9 @@ export default class TimestampRange {
     inverseLerp(timestamp) {
         return (new Timestamp(timestamp) - this.start) / (this.end - this.start)
     }
+
+    includes(timestamp) {
+        timestamp = new Timestamp(timestamp)
+        return this.start <= timestamp && timestamp <= this.end
+    }
 }

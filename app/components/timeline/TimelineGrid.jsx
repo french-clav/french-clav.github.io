@@ -10,15 +10,13 @@ function makeTick(tickIdx, tickCount, range) {
     return { t: tSnappedToYear, year: timestamp.year }
 }
 
-export default function TimelineGrid(props) {
-    const maxTicks = props.maxTicks ?? 10
-
-    const deltaYears = props.range.end.year - props.range.start.year
+export default function TimelineGrid({ viewportRange, maxTicks }) {
+    const deltaYears = viewportRange.end.year - viewportRange.start.year
     const tickCount = Math.min(maxTicks, deltaYears + 1)
 
     const ticks = []
     for (let tickIdx = 0; tickIdx < tickCount; tickIdx++) {
-        const { t, year } = makeTick(tickIdx, tickCount, props.range)
+        const { t, year } = makeTick(tickIdx, tickCount, viewportRange)
         ticks.push(
             <GridTick
                 key={tickIdx}
@@ -34,7 +32,7 @@ export default function TimelineGrid(props) {
         intermediateTicks.push(
             <GridTick
                 key={tickIdx}
-                offset={makeTick(tickIdx, tickCount, props.range).t}
+                offset={makeTick(tickIdx, tickCount, viewportRange).t}
                 opacity={0.5}
             />
         )

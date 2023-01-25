@@ -1,0 +1,18 @@
+.historical-epoch-range {
+    position: absolute;
+    padding: 0;
+    height: 100%;
+    margin: 0;
+
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: -0.8px;
+
+    opacity: 0;
+
+    transition: opacity 0.25s;
+}
+
+.historical-epoch-range-enter-active, .historical-epoch-range-enter-done {
+    opacity: 1;
+}

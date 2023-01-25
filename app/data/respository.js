@@ -5,6 +5,7 @@ import Timestamp from "../util/timestamp.js"
 import Composer from "./composer.js"
 import Publication from "./publication.js"
 import _ from "lodash"
+import HistoricalEpoch from "./historicalEpoch.js"
 
 export default class Repository {
     static composers = parseComposers(rawComposers)
@@ -36,10 +37,5 @@ function parsePublications(rawPublications) {
 }
 
 function parseHistoricalEpochs(rawHistoricalEpochs) {
-    return rawHistoricalEpochs.map(e => ({
-        from: new Timestamp(e.from),
-        to: new Timestamp(e.to),
-        name: e.name,
-        color: e.color
-    }))
+    return rawHistoricalEpochs.map(e => new HistoricalEpoch(e.start, e.end, e.name, e.color))
 }

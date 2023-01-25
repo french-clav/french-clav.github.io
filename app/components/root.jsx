@@ -17,6 +17,8 @@ export default function Root() {
         show: hasAnythingToDisplay(c, displaySettings)
     }))
 
+    const historicalEpochs = Repository.historicalEpochs
+
     return (
         <div id="root">
             <Header />
@@ -25,6 +27,7 @@ export default function Root() {
                 displaySettings={displaySettings}
                 setDisplaySettings={setDisplaySettings}
                 openComposerModal={openComposerModal}
+                historicalEpochs={historicalEpochs}
             />
             <ComposerModal
                 show={composerModalState.isOpen}
@@ -41,8 +44,6 @@ export default function Root() {
 }
 
 function hasAnythingToDisplay(composer, displaySettings) {
-    return displaySettings.historicalContext ||
-        displaySettings.genres ||
-        displaySettings.lifetimes && composer.hasKnownLifetime() ||
+    return displaySettings.lifetimes && composer.hasKnownLifetime() ||
         displaySettings.publications && composer.publications.length > 0
 }

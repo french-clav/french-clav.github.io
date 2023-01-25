@@ -6,10 +6,10 @@ export default function Publication({ publication, isSelected }) {
     useEffect(() => {
         if (isSelected) {
             const timeout = setTimeout(() => {
-                ref.current.scrollIntoView({behavior: "smooth", block: "center"})
+                ref.current.scrollIntoView({ behavior: "smooth", block: "center" })
                 console.log(publication, isSelected)
-            }, 10)
-            
+            }, 300)
+
             return () => clearTimeout(timeout)
         }
     }, [isSelected])
