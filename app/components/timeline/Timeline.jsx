@@ -26,8 +26,8 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                         {composerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
-                                orderWithinContainer={composerCards.filter(c => c.show).indexOf(card)}
-                                desiredOrder={orderedComposerCards.indexOf(card)}
+                                orderWithinContainer={composerCards.indexOf(card)}
+                                desiredOrder={orderedComposerCards.filter(c => c.show).indexOf(card)}
                                 composerCard={card}
                                 viewportRange={viewportRange}
                                 displaySettings={displaySettings}

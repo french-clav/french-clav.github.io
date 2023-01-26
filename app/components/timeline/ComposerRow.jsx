@@ -1,8 +1,12 @@
-import React, { useRef } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import { CSSTransition } from "react-transition-group"
 import "../../styles/timeline/composerRow.css"
 import PublicationMarker from "./PublicationMarker.jsx"
 import ComposerCard from "./ComposerCard.jsx"
+
+const rowHeight = 54
+const rowMarginTop = 10
+const rowStep = rowHeight + rowMarginTop
 
 export default function ComposerRow({
     orderWithinContainer,
@@ -20,17 +24,20 @@ export default function ComposerRow({
         ? "lifetime"
         : "ghost"
 
-    const rowHeight = 54
-    const rowMarginTop = 10
     const orderDelta = desiredOrder - orderWithinContainer
 
-    const style = {
-        transform: composerCard.show ? `translateY(${orderDelta * (rowHeight + rowMarginTop)}px)` : "translateY(2000px)"
-    }
+    const [translateY, setTranslateY] = useState(orderDelta * rowStep)
+    useEffect(() => {
+        // Do not change translateY when the composerCard is hidden or disappearing.
+        // This removes y-jerking when hiding the rows.
+        if (composerCard.show) {
+            setTranslateY(orderDelta * rowStep)
+        }
+    }, [composerCard.show, orderDelta])
 
     return (
         <CSSTransition nodeRef={rowRef} in={composerCard.show} timeout={250} classNames="composer-row">
-            <div ref={rowRef} className="composer-row" style={style}>
+            <div ref={rowRef} className="composer-row" style={{ transform: `translateY(${translateY}px)` }}>
                 <ComposerCard
                     composer={composer}
                     viewportRange={viewportRange}

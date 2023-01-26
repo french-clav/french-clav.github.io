@@ -3,14 +3,12 @@
     height: 54px;
     width: 100%;
 
-    transition-property: margin, height, opacity, transform;
+    transition-property: opacity, transform;
     transition-duration: 0.3s;
     transition-timing-function: ease;
-    will-change: margin, height, transform, opacity;
+    will-change: opacity, transform;
 }
 
 .composer-row-exit-active, .composer-row-exit-done {
-    height: 0;
     opacity: 0;
-    margin: 0;
 }
