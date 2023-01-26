@@ -2,18 +2,22 @@ import React, { useRef } from "react"
 import { CSSTransition } from "react-transition-group"
 import "../../extensions/numberExtensions.js"
 import "../../styles/timeline/publicationMarker.css"
-import TimestampRange from "../../util/timestampRange.js"
 
-export default function PublicationMarker({ composer, publication, viewportRange, openComposerModal, displaySettings, historicalEpochs }) {
-    const show = displaySettings.publications
-
+export default function PublicationMarker({
+    composer,
+    publication,
+    viewportRange,
+    openComposerModal,
+    show,
+    activePeriodization
+}) {
     const leftPositionStyle = {
-        left: viewportRange.inverseLerp(publication.timestamp).toPercent()
+        left: `calc(${viewportRange.inverseLerp(publication.timestamp).toPercent()} - 3px)`
     }
 
     const markerStyle = {
         ...leftPositionStyle,
-        backgroundColor: getOverridenBackgroundColor(publication, displaySettings, historicalEpochs)
+        backgroundColor: getOverridenColor(publication, activePeriodization)
     }
 
     const markerRef = useRef()
@@ -25,10 +29,10 @@ export default function PublicationMarker({ composer, publication, viewportRange
                     ref={markerRef}
                     className="publication-marker"
                     style={markerStyle}
-                    onClick ={() => openComposerModal(composer, publication)}
+                    onClick={() => openComposerModal(composer, publication)}
                 />
                 <div className="publication-marker-tooltip prevent-select" style={leftPositionStyle}>
-                    <div className="publication-marker-tooltip-title">Издание нот</div>
+                    <div className="publication-marker-tooltip-title">Издание сборника</div>
                     <div className="publication-marker-tooltip-timestamp">{publication.timestamp.toString()}</div>
                 </div>
             </>
@@ -36,11 +40,6 @@ export default function PublicationMarker({ composer, publication, viewportRange
     )
 }
 
-function getOverridenBackgroundColor(publication, displaySettings, historicalEpochs) {
-    if (!displaySettings.historicalContext) {
-        return null
-    }
-
-    return historicalEpochs.find(e => e.range.includes(publication.timestamp))?.color
-        ?? null
+function getOverridenColor(publication, activePeriodization) {
+    return activePeriodization?.getEpoch(publication.timestamp)?.color ?? null
 }

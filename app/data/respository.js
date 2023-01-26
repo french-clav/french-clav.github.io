@@ -1,15 +1,17 @@
+import _ from "lodash"
 import rawComposers from "../data/resources/composers.csv"
 import rawHistoricalEpochs from "../data/resources/historicalEpochs.csv"
+import rawSuiteTypeEpochs from "../data/resources/suiteTypeEpochs.csv"
 
 import Timestamp from "../util/timestamp.js"
 import Composer from "./composer.js"
 import Publication from "./publication.js"
-import _ from "lodash"
-import HistoricalEpoch from "./historicalEpoch.js"
+import Epoch from "./epoch.js"
 
 export default class Repository {
     static composers = parseComposers(rawComposers)
-    static historicalEpochs = parseHistoricalEpochs(rawHistoricalEpochs)
+    static historicalEpochs = parseEpochs(rawHistoricalEpochs)
+    static suiteTypeEpochs = parseEpochs(rawSuiteTypeEpochs)
 }
 
 function parseComposers(rawComposers) {
@@ -36,6 +38,13 @@ function parsePublications(rawPublications) {
         .map(p => new Publication(p))
 }
 
-function parseHistoricalEpochs(rawHistoricalEpochs) {
-    return rawHistoricalEpochs.map(e => new HistoricalEpoch(e.start, e.end, e.name, e.color))
+function parseEpochs(rawEpochs) {
+    return rawEpochs.map(e =>
+        new Epoch(
+            e.start,
+            e.end,
+            e.name,
+            e.color
+        )
+    )
 }

@@ -6,7 +6,7 @@ const zeroDisplaySettings = {
     publications: false,
     lifetimes: false,
     historicalContext: false,
-    genres: false
+    suiteTypes: false
 }
 
 const initialDisplaySettings = {
@@ -18,20 +18,47 @@ const initialDisplaySettings = {
 export default function useDisplaySettings() {
     const [value, setValue] = useState(initialDisplaySettings)
 
-    const filter = (newValue) => {
-        if (!value.succession && newValue.succession) {
-            return { ...zeroDisplaySettings, succession: true }
-        }
+    const filters = [
+        resetOthersIfSuccessionEmerged,
+        resetSuccessionIfOthersEmerged,
+        resetHistoricalContextIfSuiteTypesEmerged,
+        resetSuiteTypesIfHistoricalContextEmerged
+    ]
 
-        const anySettingBesidesSuccessionSet = !_.isEqual({ ...newValue, succession: false }, zeroDisplaySettings)
-        if (value.succession && anySettingBesidesSuccessionSet) {
-            return { ...newValue, succession: false }
-        }
-
-        return newValue
-    }
-
-    const setDisplaySettings = (newValue) => setValue(filter(newValue))
+    const setDisplaySettings = (newValue) => setValue(applyFilters(value, newValue, filters))
 
     return [value, setDisplaySettings]
+}
+
+function applyFilters(oldValue, newValue, filters) {
+    for (const filter of filters) {
+        newValue = filter(oldValue, newValue) ?? newValue
+    }
+
+    return newValue
+}
+
+function resetOthersIfSuccessionEmerged(oldValue, newValue) {
+    if (!oldValue.succession && newValue.succession) {
+        return { ...zeroDisplaySettings, succession: true }
+    }
+}
+
+function resetSuccessionIfOthersEmerged(oldValue, newValue) {
+    const anySettingBesidesSuccessionSelected = !_.isEqual({ ...newValue, succession: false }, zeroDisplaySettings)
+    if (oldValue.succession && anySettingBesidesSuccessionSelected) {
+        return { ...newValue, succession: false }
+    }
+}
+
+function resetHistoricalContextIfSuiteTypesEmerged(oldValue, newValue) {
+    if (oldValue.historicalContext && newValue.suiteTypes) {
+        return { ...newValue, historicalContext: false }
+    }
+}
+
+function resetSuiteTypesIfHistoricalContextEmerged(oldValue, newValue) {
+    if (oldValue.suiteTypes && newValue.historicalContext) {
+        return { ...newValue, suiteTypes: false }
+    }
 }

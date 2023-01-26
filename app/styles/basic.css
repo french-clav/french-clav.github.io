@@ -45,3 +45,7 @@ body {
 .pointer-transparent {
     pointer-events: none;
 }
+
+.colorless {
+    filter: grayscale(1);
+}

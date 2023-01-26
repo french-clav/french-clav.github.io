@@ -7,6 +7,7 @@ import "../styles/root.css"
 import useDisplaySettings from "../hooks/useDisplaySettings.js"
 import ComposerModal from "./composerModal/ComposerModal.jsx"
 import useComposerModalState from "../hooks/useComposerModalState.js"
+import Periodization from "../data/periodization.js"
 
 export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
@@ -17,7 +18,10 @@ export default function Root() {
         show: hasAnythingToDisplay(c, displaySettings)
     }))
 
-    const historicalEpochs = Repository.historicalEpochs
+    const periodizations = [
+        new Periodization("historicalContext", Repository.historicalEpochs, displaySettings.historicalContext),
+        new Periodization("suiteTypes", Repository.suiteTypeEpochs, displaySettings.suiteTypes)
+    ]
 
     return (
         <div id="root">
@@ -27,7 +31,7 @@ export default function Root() {
                 displaySettings={displaySettings}
                 setDisplaySettings={setDisplaySettings}
                 openComposerModal={openComposerModal}
-                historicalEpochs={historicalEpochs}
+                periodizations={periodizations}
             />
             <ComposerModal
                 show={composerModalState.isOpen}

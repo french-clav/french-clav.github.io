@@ -1,8 +1,0 @@
-.historical-context-row-spacer {
-    height: 0px;
-    transition: height 0.25s;
-}
-
-.historical-context-row-spacer-enter-active, .historical-context-row-spacer-enter-done {
-    height: 30px;
-}

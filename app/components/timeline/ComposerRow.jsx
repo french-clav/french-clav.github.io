@@ -11,7 +11,7 @@ export default function ComposerRow({
     viewportRange,
     displaySettings,
     openComposerModal,
-    historicalEpochs
+    activePeriodization
 }) {
     const rowRef = useRef()
 
@@ -25,7 +25,7 @@ export default function ComposerRow({
     const orderDelta = desiredOrder - orderWithinContainer
 
     const style = {
-        transform: composerCard.show ? `translateY(${orderDelta * (rowHeight + rowMarginTop)}px)` : ""
+        transform: composerCard.show ? `translateY(${orderDelta * (rowHeight + rowMarginTop)}px)` : "translateY(2000px)"
     }
 
     return (
@@ -37,6 +37,7 @@ export default function ComposerRow({
                     type={type}
                     displaySettings={displaySettings}
                     openComposerModal={openComposerModal}
+                    activePeriodization={activePeriodization}
                 />
                 {composer.publications.map(p =>
                     <PublicationMarker
@@ -45,8 +46,8 @@ export default function ComposerRow({
                         publication={p}
                         viewportRange={viewportRange}
                         openComposerModal={openComposerModal}
-                        displaySettings={displaySettings}
-                        historicalEpochs={historicalEpochs}
+                        show={displaySettings.publications}
+                        activePeriodization={activePeriodization}
                     />
                 )}
             </div>

@@ -14,7 +14,7 @@ export default function Main(props) {
                     composerCards={props.composerCards}
                     displaySettings={props.displaySettings}
                     openComposerModal={props.openComposerModal}
-                    historicalEpochs={props.historicalEpochs}
+                    periodizations={props.periodizations}
                 />
                 {allHidden && <NoDataPlaceholder/>}
                 <DisplaySettingsPanel displaySettings={props.displaySettings} setDisplaySettings={props.setDisplaySettings} />

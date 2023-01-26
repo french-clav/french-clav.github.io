@@ -34,7 +34,3 @@
     transition: box-shadow 0.15s;
     box-shadow: 0 0 5px 0 #89b496, 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }
-
-.composer-lifetime-colorless {
-    filter: grayscale(1);
-}

@@ -1,4 +1,4 @@
-.historical-epoch-range-card-container {
+.epoch-label-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -10,11 +10,11 @@
     transition: max-height 0.25s;
 }
 
-.historical-epoch-range-card-container-shown {
+.epoch-label-container-shown {
     max-height: 64px;
 }
 
-.historical-epoch-range-card {
+.epoch-label {
     position: relative;
     display: inline-block;
 
@@ -27,7 +27,7 @@
     overflow: hidden;
 }
 
-.historical-epoch-range-card > p {
+.epoch-label > p {
     margin: 4px 6px 4px 6px;
     text-align: center;
 }

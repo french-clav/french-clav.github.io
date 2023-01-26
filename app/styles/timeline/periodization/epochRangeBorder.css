@@ -1,5 +1,4 @@
-.historical-epoch-range-border {
-    /* opacity: 0.2; */
+.epoch-range-border {
     border-left-width: 1px;
     border-left-style: solid;
     border-right-width: 1px;

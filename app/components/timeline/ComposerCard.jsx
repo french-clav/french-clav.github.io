@@ -5,7 +5,14 @@ import "../../styles/timeline/composerLifetime.css"
 import "../../styles/timeline/composerGhost.css"
 import "../../styles/timeline/composerCard.css"
 
-export default function ComposerCard({ composer, viewportRange, type, displaySettings, openComposerModal }) {
+export default function ComposerCard({
+    composer,
+    viewportRange,
+    type,
+    displaySettings,
+    openComposerModal,
+    activePeriodization
+}) {
     const style = type === "lifetime"
         ? calcLifetimeStyle(composer, viewportRange)
         : null
@@ -17,12 +24,12 @@ export default function ComposerCard({ composer, viewportRange, type, displaySet
 
     return (
         <div
-            className={`composer-card ${typeClasses[type]} ${displaySettings.historicalContext ? "composer-lifetime-colorless" : ""}`}
+            className={`composer-card ${typeClasses[type]} ${activePeriodization ? "colorless" : ""}`}
             style={style}
             onClick={() => openComposerModal(composer)}
         >
             <p className="composer-name">{composer.name}</p>
-            <ComposerYears composer={composer} show={displaySettings.lifetimes}/>
+            <ComposerYears composer={composer} show={displaySettings.lifetimes} />
         </div>
     )
 }

@@ -5,10 +5,10 @@ import TimelineGrid from "./TimelineGrid.jsx"
 import ComposerRow from "./ComposerRow.jsx"
 import TimestampRange from "../../util/timestampRange.js"
 import { CSSTransition } from "react-transition-group"
-import HistoricalContextRow from "./historicalContext/HistoricalContextRow.jsx"
-import HistoricalContextRowSpacer from "./historicalContext/HistoricalContextRowSpacer.jsx"
+import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
+import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
 
-export default function Timeline({ composerCards, displaySettings, openComposerModal, historicalEpochs }) {
+export default function Timeline({ composerCards, displaySettings, openComposerModal, periodizations }) {
     const viewportRange = rangeToFitAll(composerCards)
     const orderedComposerCards = orderComposerCards(composerCards, displaySettings)
 
@@ -20,7 +20,9 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                 <TimelineGrid viewportRange={viewportRange} maxTicks={10} />
                 <div className="zero-pos composers-scroller">
                     <div className="composers-container">
-                        <HistoricalContextRowSpacer show={displaySettings.historicalContext} />
+                        {periodizations.map(p =>
+                            <PeriodizationRowSpacer key={p.name} show={p.active} />
+                        )}
                         {composerCards.map(card =>
                             <ComposerRow
                                 key={card.composer.name}
@@ -30,12 +32,14 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                                 viewportRange={viewportRange}
                                 displaySettings={displaySettings}
                                 openComposerModal={openComposerModal}
-                                historicalEpochs={historicalEpochs}
+                                activePeriodization={periodizations.find(p => p.active)}
                             />
                         )}
                     </div>
                 </div>
-                <HistoricalContextRow epochs={historicalEpochs} viewportRange={viewportRange} show={displaySettings.historicalContext} />
+                {periodizations.map(p =>
+                    <PeriodizationLayer key={p.name} periodization={p} viewportRange={viewportRange} show={p.active} />
+                )}                
                 <div className="zero-pos timeline-top-bottom-shadows" />
             </div>
         </CSSTransition>

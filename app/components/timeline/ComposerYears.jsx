@@ -8,7 +8,7 @@ export default function ComposerYears({ composer, show }) {
     return (
         <CSSTransition nodeRef={ref} in={show} timeout={250} classNames="composer-years" mountOnEnter>
             <p ref={ref} className="composer-years">
-                {composer.birth?.year ?? "?"} — {composer.death?.year ?? "?"}
+                {composer.birth?.toYearString() ?? "?"} — {composer.death?.toYearString() ?? "?"}
             </p>
         </CSSTransition>
     )

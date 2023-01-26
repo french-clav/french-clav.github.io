@@ -1,4 +1,4 @@
-.historical-epoch-range {
+.epoch-range {
     position: absolute;
     padding: 0;
     height: 100%;
@@ -13,6 +13,6 @@
     transition: opacity 0.25s;
 }
 
-.historical-epoch-range-enter-active, .historical-epoch-range-enter-done {
+.epoch-range-enter-active, .epoch-range-enter-done {
     opacity: 1;
 }

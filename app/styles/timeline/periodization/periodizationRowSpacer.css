@@ -1,0 +1,8 @@
+.periodization-row-spacer {
+    height: 0px;
+    transition: height 0.25s;
+}
+
+.periodization-row-spacer-enter-active, .periodization-row-spacer-enter-done {
+    height: 30px;
+}

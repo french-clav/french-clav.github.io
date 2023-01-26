@@ -53,20 +53,34 @@ export default class Timestamp {
         return new Timestamp(date)
     }
 
+    addDays(days) {
+        const date = new Date(this.date)
+        date.setDate(date.getDate() + days)
+
+        return new Timestamp(date)
+    }
+
     startOfYear() {
         return new Timestamp(this.year.toString())
     }
 
+    toYearString() {
+        return `${this._getApproximatePrefix()}${this.date.getFullYear()}`
+    }
+
     toString() {
-        const approxPart = this.approximate ? "ок. " : ""
         const datePart = this.onlyYear
             ? this.date.getFullYear().toString()
             : this.date.toLocaleDateString()
 
-        return `${approxPart}${datePart}`
+        return `${this._getApproximatePrefix()}${datePart}`
     }
 
     valueOf() {
         return this.date.valueOf()
+    }
+
+    _getApproximatePrefix() {
+        return this.approximate ? "ок. " : ""
     }
 }

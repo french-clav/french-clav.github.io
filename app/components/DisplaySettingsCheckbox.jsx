@@ -5,7 +5,7 @@ export default function DisplaySettingsCheckbox(props) {
         displaySettings,
         setDisplaySettings,
         settingsKey,
-        title
+        children
     } = props
 
     return (
@@ -15,7 +15,7 @@ export default function DisplaySettingsCheckbox(props) {
                 checked={displaySettings[settingsKey]}
                 onChange={e => setDisplaySettings({ ...displaySettings, [settingsKey]: e.target.checked })}
             />
-            <span>{title}</span>
+            <span>{children}</span>
         </label>
     )
 }
