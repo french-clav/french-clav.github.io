@@ -10,6 +10,10 @@
     opacity: 0;
 }
 
+.timeline-exit-done {
+    height: 0;
+}
+
 .timeline-top-bottom-shadows {
     height: 100%;
     width: 100%;
