@@ -8,7 +8,7 @@ export default function Publication({ publication, isSelected }) {
             const timeout = setTimeout(() => {
                 ref.current.scrollIntoView({ behavior: "smooth", block: "center" })
                 console.log(publication, isSelected)
-            }, 300)
+            }, 400)
 
             return () => clearTimeout(timeout)
         }
