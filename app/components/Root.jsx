@@ -13,10 +13,12 @@ export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
     const [composerModalState, openComposerModal, closeComposerModal] = useComposerModalState()
 
-    const composerCards = Repository.composers.map(c => ({
-        composer: c,
-        show: hasAnythingToDisplay(c, displaySettings)
-    }))
+    const composerCards = Repository.composers
+        .filter(c => !c.hideFromList)
+        .map(c => ({
+            composer: c,
+            show: hasAnythingToDisplay(c, displaySettings)
+        }))
 
     const periodizations = [
         new Periodization("historicalContext", Repository.historicalEpochs, displaySettings.historicalContext),

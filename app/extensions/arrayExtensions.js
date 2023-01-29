@@ -12,3 +12,8 @@ Array.prototype.min = function (selector) {
         ? selector(element)
         : null
 }
+
+Array.prototype.add = function (item) {
+    this.push(item)
+    return item
+}
