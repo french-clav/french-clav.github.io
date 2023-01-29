@@ -1,6 +1,6 @@
 import React from "react"
 import "../styles/main.css"
-import DisplaySettingsPanel from "./DisplaySettingsPanel.jsx"
+import DisplaySettingsPanels from "./DisplaySettingsPanels.jsx"
 import NoDataPlaceholder from "./NoDataPlaceholder.jsx"
 import SuccessionDiagram from "./SuccessionDiagram.jsx"
 import Timeline from "./timeline/Timeline.jsx"
@@ -23,7 +23,7 @@ export default function Main(props) {
                 {allHidden &&
                     <NoDataPlaceholder/>
                 }
-                <DisplaySettingsPanel displaySettings={props.displaySettings} setDisplaySettings={props.setDisplaySettings} />
+                <DisplaySettingsPanels displaySettings={props.displaySettings} setDisplaySettings={props.setDisplaySettings} />
             </div>
         </main>
     )

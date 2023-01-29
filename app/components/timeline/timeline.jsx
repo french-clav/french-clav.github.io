@@ -39,7 +39,7 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                 </div>
                 {periodizations.map(p =>
                     <PeriodizationLayer key={p.name} periodization={p} viewportRange={viewportRange} show={p.active} />
-                )}                
+                )}
                 <div className="zero-pos timeline-top-bottom-shadows" />
             </div>
         </CSSTransition>
