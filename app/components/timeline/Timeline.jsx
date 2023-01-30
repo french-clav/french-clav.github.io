@@ -8,14 +8,14 @@ import { CSSTransition } from "react-transition-group"
 import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
 import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
 
-export default function Timeline({ composerCards, displaySettings, openComposerModal, periodizations }) {
-    const viewportRange = rangeToFitAll(composerCards)
-    const orderedComposerCards = orderComposerCards(composerCards, displaySettings)
+export default function Timeline({ composerEnvelopes, displaySettings, openComposerModal, periodizations }) {
+    const viewportRange = rangeToFitAll(composerEnvelopes)
+    const orderedComposerEnvelopes = orderComposerEnvelopes(composerEnvelopes, displaySettings)
 
     const timelineRef = useRef()
 
     return (
-        <CSSTransition nodeRef={timelineRef} in={composerCards.some(c => c.show)} timeout={250} classNames="timeline">
+        <CSSTransition nodeRef={timelineRef} in={composerEnvelopes.some(e => e.show)} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
                 <TimelineGrid viewportRange={viewportRange} maxTicks={10} />
                 <div className="zero-pos composers-scroller">
@@ -23,12 +23,12 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
                         {periodizations.map(p =>
                             <PeriodizationRowSpacer key={p.name} show={p.active} />
                         )}
-                        {composerCards.map(card =>
+                        {composerEnvelopes.map(envelope =>
                             <ComposerRow
-                                key={card.composer.name}
-                                orderWithinContainer={composerCards.indexOf(card)}
-                                desiredOrder={orderedComposerCards.filter(c => c.show).indexOf(card)}
-                                composerCard={card}
+                                key={envelope.composer.name}
+                                orderWithinContainer={composerEnvelopes.indexOf(envelope)}
+                                desiredOrder={orderedComposerEnvelopes.filter(e => e.show).indexOf(envelope)}
+                                composerEnvelope={envelope}
                                 viewportRange={viewportRange}
                                 displaySettings={displaySettings}
                                 openComposerModal={openComposerModal}
@@ -46,14 +46,14 @@ export default function Timeline({ composerCards, displaySettings, openComposerM
     )
 }
 
-function rangeToFitAll(composerCards) {
-    if (!composerCards.some(c => c.show)) {
+function rangeToFitAll(composerEnvelopes) {
+    if (!composerEnvelopes.some(e => e.show)) {
         return new TimestampRange("1601", "1823")
     }
 
-    const timestamps = composerCards
-        .filter(c => c.show)
-        .map(c => c.composer)
+    const timestamps = composerEnvelopes
+        .filter(e => e.show)
+        .map(e => e.composer)
         .flatMap(c => [
             c.birth,
             c.death,
@@ -68,20 +68,20 @@ function rangeToFitAll(composerCards) {
     return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1))
 }
 
-function orderComposerCards(composerCards, displaySettings) {
+function orderComposerEnvelopes(composerEnvelopes, displaySettings) {
     if (displaySettings.lifetimes) {
         return [
-            ...composerCards.filter(c => c.composer.hasKnownLifetime()).orderBy(c => c.composer.birth),
-            ...composerCards.filter(c => !c.composer.hasKnownLifetime()).orderBy(c => c.composer.name)
+            ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
+            ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
         ]
     }
 
     if (displaySettings.publications) {
         return [
-            ...composerCards.filter(c => c.composer.publications.length > 0).orderBy(c => c.composer.publications.min(p => p.timestamp)),
-            ...composerCards.filter(c => c.composer.publications.length === 0).orderBy(c => c.composer.name)
+            ...composerEnvelopes.filter(e => e.composer.publications.length > 0).orderBy(e => e.composer.publications.min(p => p.timestamp)),
+            ...composerEnvelopes.filter(e => e.composer.publications.length === 0).orderBy(e => e.composer.name)
         ]
     }
 
-    return composerCards
+    return composerEnvelopes
 }

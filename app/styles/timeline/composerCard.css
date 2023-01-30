@@ -1,4 +1,0 @@
-.composer-card, .composer-card > * {
-    transition: all 0.25s;
-    will-change: width;
-}

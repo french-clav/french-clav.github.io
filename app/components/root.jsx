@@ -13,11 +13,11 @@ export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
     const [composerModalState, openComposerModal, closeComposerModal] = useComposerModalState()
 
-    const composerCards = Repository.composers
+    const composerEnvelopes = Repository.composers
         .filter(c => !c.hideFromList)
         .map(c => ({
             composer: c,
-            show: hasAnythingToDisplay(c, displaySettings)
+            show: shouldShow(c, displaySettings)
         }))
 
     const periodizations = [
@@ -29,7 +29,7 @@ export default function Root() {
         <div id="root">
             <Header />
             <Main
-                composerCards={composerCards}
+                composerEnvelopes={composerEnvelopes}
                 displaySettings={displaySettings}
                 setDisplaySettings={setDisplaySettings}
                 openComposerModal={openComposerModal}
@@ -42,14 +42,14 @@ export default function Root() {
                 closeModal={closeComposerModal}
             />
             <Footer
-                composerCards={composerCards}
+                composerEnvelopes={composerEnvelopes}
                 openComposerModal={openComposerModal}
             />
         </div>
     )
 }
 
-function hasAnythingToDisplay(composer, displaySettings) {
+function shouldShow(composer, displaySettings) {
     return displaySettings.lifetimes && composer.hasKnownLifetime() ||
         displaySettings.publications && composer.publications.length > 0
 }

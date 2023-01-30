@@ -16,6 +16,17 @@ export class SuccessionTree {
     constructor(root) {
         this.root = root
     }
+
+    forEach(callback) {
+        const exec = (node, level) => {
+            callback(node.composer, level)
+            for (const successor of node.successors) {
+                exec(successor, level + 1)
+            }
+        }
+
+        exec(this.root, 0)
+    }
 }
 
 export class SuccessionTreeBuilder {

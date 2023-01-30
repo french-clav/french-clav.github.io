@@ -1,8 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { CSSTransition } from "react-transition-group"
-import "../../styles/timeline/composerRow.css"
 import PublicationMarker from "./PublicationMarker.jsx"
-import ComposerCard from "./ComposerCard.jsx"
+import ComposerBadge from "../ComposerBadge.jsx"
+import RangeContainer from "./RangeContainer.jsx"
+import classNames from "../../util/classNames.js"
+import "../../styles/timeline/composerRow.css"
+import "../../styles/composerCard.css"
+import "../../styles/timeline/composerGhost.css"
 
 const rowHeight = 54
 const rowMarginTop = 10
@@ -11,7 +15,7 @@ const rowStep = rowHeight + rowMarginTop
 export default function ComposerRow({
     orderWithinContainer,
     desiredOrder,
-    composerCard,
+    composerEnvelope: { composer, show },
     viewportRange,
     displaySettings,
     openComposerModal,
@@ -19,7 +23,6 @@ export default function ComposerRow({
 }) {
     const rowRef = useRef()
 
-    const composer = composerCard.composer
     const type = displaySettings.lifetimes && composer.hasKnownLifetime()
         ? "lifetime"
         : "ghost"
@@ -28,24 +31,33 @@ export default function ComposerRow({
 
     const [translateY, setTranslateY] = useState(orderDelta * rowStep)
     useEffect(() => {
-        // Do not change translateY when the composerCard is hidden or disappearing.
+        // Do not change translateY when the composer row is hidden or disappearing.
         // This removes y-jerking when hiding the rows.
-        if (composerCard.show) {
+        if (show) {
             setTranslateY(orderDelta * rowStep)
         }
-    }, [composerCard.show, orderDelta])
+    }, [show, orderDelta])
 
     return (
-        <CSSTransition nodeRef={rowRef} in={composerCard.show} timeout={250} classNames="composer-row">
+        <CSSTransition nodeRef={rowRef} in={show} timeout={250} classNames="composer-row">
             <div ref={rowRef} className="composer-row" style={{ transform: `translateY(${translateY}px)` }}>
-                <ComposerCard
-                    composer={composer}
+                <RangeContainer
+                    className="range-container-animated"
+                    range={type == "lifetime" ? composer.lifetime : viewportRange}
                     viewportRange={viewportRange}
-                    type={type}
-                    displaySettings={displaySettings}
-                    openComposerModal={openComposerModal}
-                    activePeriodization={activePeriodization}
-                />
+                >
+                    <ComposerBadge
+                        composer={composer}
+                        className={classNames({
+                            "composer-badge-animated": true,
+                            "colorless": activePeriodization != null,
+                            "composer-card": type === "lifetime",
+                            "composer-ghost relative": type === "ghost"
+                        })}
+                        showLifetime={displaySettings.lifetimes}
+                        onClick={() => openComposerModal(composer)}
+                    />
+                </RangeContainer>
                 {composer.publications.map(p =>
                     <PublicationMarker
                         key={p.timestamp}

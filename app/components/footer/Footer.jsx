@@ -2,11 +2,11 @@ import React from "react"
 import "../../styles/footer/footer.css"
 import HiddenComposerCard from "./HiddenComposerCard.jsx"
 
-export default function Footer({ composerCards, openComposerModal }) {
+export default function Footer({ composerEnvelopes, openComposerModal }) {
     return (
         <div className="footer">
-            {composerCards.map(card => (
-                <HiddenComposerCard key={card.composer.name} composerCard={card} openComposerModal={openComposerModal} />
+            {composerEnvelopes.map(e => (
+                <HiddenComposerCard key={e.composer.name} composerEnvelope={e} openComposerModal={openComposerModal} />
             ))}
         </div>
     )

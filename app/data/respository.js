@@ -65,8 +65,5 @@ function parseSuccessionTree(rawSuccessionEntries, composers) {
     }
 
     const tree = builder.build()
-
-    console.log(tree)
-
     return tree
 }

@@ -1,8 +1,6 @@
-.composer-lifetime {
-    top: 0;
-    height: 100%;
+.composer-card {
+    padding-left: 8px;
     border-radius: 5px;
-    position: absolute;
 
     display: flex;
     flex-direction: column;
@@ -23,14 +21,14 @@
 
     cursor: pointer;
 
-    transition: filter 0.25s;
+    transition: filter 0.25s, box-shadow 0.25s;
 }
 
-.composer-lifetime .composer-name {
+.composer-card .composer-name {
     margin: 0;
 }
 
-.composer-lifetime:hover {
+.composer-card:hover {
     transition: box-shadow 0.15s;
     box-shadow: 0 0 5px 0 #89b496, 0 5px 5px 0 rgba(0, 0, 0, 0.1);
 }

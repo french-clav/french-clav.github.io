@@ -1,4 +1,5 @@
 import _ from "lodash"
+import TimestampRange from "../util/timestampRange.js"
 
 export default class Composer {
     constructor(id, name, birth, death, publications, bio, photoFileName, hideFromList) {
@@ -10,6 +11,10 @@ export default class Composer {
         this.bio = bio
         this.photoFileName = photoFileName
         this.hideFromList = hideFromList
+    }
+
+    get lifetime() {
+        return new TimestampRange(this.birth, this.death)
     }
 
     hasKnownLifetime() {

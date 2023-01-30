@@ -1,6 +1,6 @@
 import React, { useRef } from "react"
 import { CSSTransition } from "react-transition-group"
-import "../../styles/timeline/composerYears.css"
+import "../styles/composerYears.css"
 
 export default function ComposerYears({ composer, show }) {
     const ref = useRef()
