@@ -27,7 +27,7 @@ function parseComposers(rawComposers) {
             parsePublications(c.publications),
             c.bio,
             c.photoFileName,
-            c.hideFromList == "true"
+            c.hideFromList === "true"
         )
     )
 }
@@ -58,8 +58,8 @@ function parseSuccessionTree(rawSuccessionEntries, composers) {
     const builder = new SuccessionTreeBuilder()
 
     for (const entry of rawSuccessionEntries) {
-        const composer = composers.find(c => c.id == entry.composerId)
-        const predecessor = composers.find(c => c.id == entry.predecessorId)
+        const composer = composers.find(c => c.id === entry.composerId)
+        const predecessor = composers.find(c => c.id === entry.predecessorId)
 
         builder.insert(composer, predecessor)
     }

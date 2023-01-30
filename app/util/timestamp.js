@@ -32,16 +32,6 @@ export default class Timestamp {
         }
     }
 
-    static new(input) {
-        if (input == null)
-            return input
-
-        if (input === '')
-            return null
-
-        return new Timestamp(input)
-    }
-
     get year() {
         return this.date.getFullYear()
     }
@@ -65,7 +55,7 @@ export default class Timestamp {
     }
 
     toYearString() {
-        return `${this._getApproximatePrefix()}${this.date.getFullYear()}`
+        return `${this.#getApproximatePrefix()}${this.date.getFullYear()}`
     }
 
     toString() {
@@ -73,14 +63,14 @@ export default class Timestamp {
             ? this.date.getFullYear().toString()
             : this.date.toLocaleDateString()
 
-        return `${this._getApproximatePrefix()}${datePart}`
+        return `${this.#getApproximatePrefix()}${datePart}`
     }
 
     valueOf() {
         return this.date.valueOf()
     }
 
-    _getApproximatePrefix() {
+    #getApproximatePrefix() {
         return this.approximate ? "ок. " : ""
     }
 }
