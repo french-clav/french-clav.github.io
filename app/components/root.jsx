@@ -13,11 +13,12 @@ export default function Root() {
     const [displaySettings, setDisplaySettings] = useDisplaySettings()
     const [composerModalState, openComposerModal, closeComposerModal] = useComposerModalState()
 
+    const successionTree = Repository.successionTree
     const composerEnvelopes = Repository.composers
         .filter(c => !c.hideFromList)
         .map(c => ({
             composer: c,
-            show: shouldShow(c, displaySettings)
+            show: shouldShow(c, displaySettings, successionTree)
         }))
 
     const periodizations = [
@@ -34,6 +35,7 @@ export default function Root() {
                 setDisplaySettings={setDisplaySettings}
                 openComposerModal={openComposerModal}
                 periodizations={periodizations}
+                successionTree={successionTree}
             />
             <ComposerModal
                 show={composerModalState.isOpen}
@@ -49,7 +51,8 @@ export default function Root() {
     )
 }
 
-function shouldShow(composer, displaySettings) {
+function shouldShow(composer, displaySettings, successionTree) {
     return displaySettings.lifetimes && composer.hasKnownLifetime() ||
-        displaySettings.publications && composer.publications.length > 0
+        displaySettings.publications && composer.publications.length > 0 ||
+        displaySettings.succession && successionTree.contains(composer)
 }

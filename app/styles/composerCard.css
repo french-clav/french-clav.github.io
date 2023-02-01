@@ -1,5 +1,6 @@
 .composer-card {
     padding-left: 8px;
+    padding-right: 8px;
     border-radius: 5px;
 
     display: flex;

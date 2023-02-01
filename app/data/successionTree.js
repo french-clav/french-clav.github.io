@@ -17,15 +17,43 @@ export class SuccessionTree {
         this.root = root
     }
 
-    forEach(callback) {
-        const exec = (node, level) => {
-            callback(node.composer, level)
+    forEach(callback, initialReturnValue) {
+        const control = {
+            stopped: false,
+            returnValue: initialReturnValue
+        }
+
+        const exec = (node, context) => {
+            callback(node.composer, context)
+            if (control.stopped)
+                return
+
             for (const successor of node.successors) {
-                exec(successor, level + 1)
+                exec(successor, { ...context, level: context.level + 1 })
+                if (control.stopped)
+                    return
             }
         }
 
-        exec(this.root, 0)
+        const context = {
+            level: 0,
+            stop(returnValue) {
+                control.stopped = true
+                control.returnValue = returnValue
+            }
+        }
+
+        exec(this.root, context)
+
+        return control.returnValue
+    }
+
+    contains(composer) {
+        return this.forEach((c, context) => {
+            if (c === composer) {
+                context.stop(true)
+            }
+        }, false)
     }
 }
 

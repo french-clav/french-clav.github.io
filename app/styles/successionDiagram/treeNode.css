@@ -1,0 +1,17 @@
+.succession-tree-node {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.succession-tree-node .composer-name {
+    white-space: normal;
+    text-align: center;
+    width: 100%;
+}
+
+.succession-tree-node .composer-years {
+    white-space: normal;
+    text-align: center;
+    width: 100%;
+    height: auto;
+}

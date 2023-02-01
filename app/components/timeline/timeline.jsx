@@ -8,14 +8,14 @@ import { CSSTransition } from "react-transition-group"
 import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
 import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
 
-export default function Timeline({ composerEnvelopes, displaySettings, openComposerModal, periodizations }) {
+export default function Timeline({ composerEnvelopes, displaySettings, openComposerModal, periodizations, show }) {
     const viewportRange = rangeToFitAll(composerEnvelopes)
     const orderedComposerEnvelopes = orderComposerEnvelopes(composerEnvelopes, displaySettings)
 
     const timelineRef = useRef()
 
     return (
-        <CSSTransition nodeRef={timelineRef} in={composerEnvelopes.some(e => e.show)} timeout={250} classNames="timeline">
+        <CSSTransition nodeRef={timelineRef} in={show} timeout={250} classNames="timeline">
             <div ref={timelineRef} className="timeline relative">
                 <TimelineGrid viewportRange={viewportRange} maxTicks={10} />
                 <div className="zero-pos composers-scroller">
