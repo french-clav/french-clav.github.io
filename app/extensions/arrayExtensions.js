@@ -13,6 +13,17 @@ Array.prototype.min = function (selector) {
         : null
 }
 
+Array.prototype.maxBy = function (selector) {
+    return this.orderBy(selector)[this.length - 1] ?? null
+}
+
+Array.prototype.max = function (selector) {
+    const element = this.maxBy(selector)
+    return element != null
+        ? selector(element)
+        : null
+}
+
 Array.prototype.add = function (item) {
     this.push(item)
     return item

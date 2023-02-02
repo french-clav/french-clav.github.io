@@ -24,7 +24,7 @@ export class SuccessionTree {
         }
 
         const exec = (node, context) => {
-            callback(node.composer, context)
+            callback(node, context)
             if (control.stopped)
                 return
 
@@ -49,8 +49,8 @@ export class SuccessionTree {
     }
 
     contains(composer) {
-        return this.forEach((c, context) => {
-            if (c === composer) {
+        return this.forEach((node, context) => {
+            if (node.composer === composer) {
                 context.stop(true)
             }
         }, false)

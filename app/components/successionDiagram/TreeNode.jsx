@@ -16,7 +16,7 @@ export default function TreeNode({ node, openComposerModal, isChild, isLeft, isR
                 </>
             }
             <div style={{ width: "auto", marginLeft: 10, marginRight: 10 }}>
-                <ComposerBadge composer={node.composer} className="composer-card succession-tree-node" onClick={() => openComposerModal(node.composer)} showLifetime />
+                <ComposerBadge composer={node.composer} className="composer-card succession-tree-node" onClick={() => openComposerModal(node.composer)} showLifetime={node.composer.hasKnownLifetime()} />
             </div>
             {node.successors.length > 0 &&
                 <>

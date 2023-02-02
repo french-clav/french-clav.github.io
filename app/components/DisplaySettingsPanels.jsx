@@ -26,7 +26,7 @@ export default function DisplaySettingsPanels({ displaySettings, setDisplaySetti
                 </section>
                 <section>
                     <DisplaySettingsCheckbox displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} settingsKey="suiteTypes">
-                        Типы сюит
+                        Модификация сюиты
                     </DisplaySettingsCheckbox>
                 </section>
             </DisplaySettingsPanel>
