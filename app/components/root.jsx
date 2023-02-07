@@ -14,6 +14,7 @@ export default function Root() {
     const [composerModalState, openComposerModal, closeComposerModal] = useComposerModalState()
 
     const successionTree = Repository.successionTree
+    const successionGroups = Repository.successionGroups
     const composerEnvelopes = Repository.composers
         .filter(c => !c.hideFromList)
         .map(c => ({
@@ -36,6 +37,7 @@ export default function Root() {
                 openComposerModal={openComposerModal}
                 periodizations={periodizations}
                 successionTree={successionTree}
+                successionGroups={successionGroups}
             />
             <ComposerModal
                 show={composerModalState.isOpen}

@@ -48,6 +48,16 @@ export class SuccessionTree {
         return control.returnValue
     }
 
+    map(selector) {
+        const result = []
+
+        this.forEach(node => {
+            result.push(selector(node))
+        })
+
+        return result
+    }
+
     contains(composer) {
         return this.forEach((node, context) => {
             if (node.composer === composer) {

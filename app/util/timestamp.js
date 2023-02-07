@@ -16,7 +16,7 @@ export default class Timestamp {
             return
         }
 
-        if (typeof input === 'number' || input instanceof Number) {
+        if (typeof input === "number" || input instanceof Number) {
             this.date = new Date(input)
             this.onlyYear = false
             this.approximate = false
@@ -24,7 +24,7 @@ export default class Timestamp {
             return
         }
 
-        if (typeof input === 'string' || input instanceof String) {
+        if (typeof input === "string" || input instanceof String) {
             const match = input.match(/^(?<approximate>~)?(?<date>\d{1,4}(?<ext>-\d{2}-\d{2})?)$/)
             this.date = new Date(match.groups.date)
             this.onlyYear = !match.groups.ext

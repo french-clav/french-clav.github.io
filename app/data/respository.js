@@ -3,6 +3,7 @@ import rawComposers from "../data/resources/composers.csv"
 import rawHistoricalEpochs from "../data/resources/historicalEpochs.csv"
 import rawSuiteTypeEpochs from "../data/resources/suiteTypeEpochs.csv"
 import rawSuccessionEntries from "../data/resources/succession.csv"
+import rawSuccessionGroups from "../data/resources/successionGroups.csv"
 
 import Timestamp from "../util/timestamp.js"
 import Composer from "./composer.js"
@@ -15,6 +16,7 @@ export default class Repository {
     static historicalEpochs = parseEpochs(rawHistoricalEpochs)
     static suiteTypeEpochs = parseEpochs(rawSuiteTypeEpochs)
     static successionTree = parseSuccessionTree(rawSuccessionEntries, this.composers)
+    static successionGroups = parseSuccessionGroups(rawSuccessionGroups, this.composers)
 }
 
 function parseComposers(rawComposers) {
@@ -66,4 +68,15 @@ function parseSuccessionTree(rawSuccessionEntries, composers) {
 
     const tree = builder.build()
     return tree
+}
+
+function parseSuccessionGroups(rawSuccessionGroups, composers) {
+    return rawSuccessionGroups.map(g => ({
+        name: g.name,
+        composers: composers.filter(c => g.composerIds
+            .split(",")
+            .map(i => i.trim())
+            .includes(c.id)
+        )
+    }))
 }
