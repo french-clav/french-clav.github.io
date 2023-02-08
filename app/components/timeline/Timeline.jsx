@@ -9,7 +9,7 @@ import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
 import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
 
 export default function Timeline({ composerEnvelopes, displaySettings, openComposerModal, periodizations, show }) {
-    const viewportRange = rangeToFitAll(composerEnvelopes)
+    const viewportRange = new TimestampRange("1600", "1825")
     const orderedComposerEnvelopes = orderComposerEnvelopes(composerEnvelopes, displaySettings)
 
     const timelineRef = useRef()
@@ -46,42 +46,28 @@ export default function Timeline({ composerEnvelopes, displaySettings, openCompo
     )
 }
 
-function rangeToFitAll(composerEnvelopes) {
-    if (!composerEnvelopes.some(e => e.show)) {
-        return new TimestampRange("1601", "1823")
-    }
-
-    const timestamps = composerEnvelopes
-        .filter(e => e.show)
-        .map(e => e.composer)
-        .flatMap(c => [
-            c.birth,
-            c.death,
-            ...c.publications.flatMap(p => [
-                p.minTimestamp,
-                p.maxTimestamp
-            ])
-        ])
-        .filter(x => x != null)
-        .orderBy(x => x)
-
-    return new TimestampRange(timestamps[0].addYears(-1), timestamps[timestamps.length - 1].addYears(1))
-}
-
 function orderComposerEnvelopes(composerEnvelopes, displaySettings) {
     if (displaySettings.publications) {
-        return [
-            ...composerEnvelopes.filter(e => e.composer.publications.length > 0).orderBy(e => e.composer.publications.min(p => p.timestamp)),
-            ...composerEnvelopes.filter(e => e.composer.publications.length === 0).orderBy(e => e.composer.name)
-        ]
+        return orderComposerEnvelopesByPublications(composerEnvelopes)
     }
 
     if (displaySettings.lifetimes) {
-        return [
-            ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
-            ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
-        ]
+        return orderComposerEnvelopesByBirthDate(composerEnvelopes)
     }
 
     return composerEnvelopes
+}
+
+function orderComposerEnvelopesByPublications(composerEnvelopes) {
+    return [
+        ...composerEnvelopes.filter(e => e.composer.publications.length > 0).orderBy(e => e.composer.publications.min(p => p.timestamp)),
+        ...composerEnvelopes.filter(e => e.composer.publications.length === 0).orderBy(e => e.composer.name)
+    ]
+}
+
+function orderComposerEnvelopesByBirthDate(composerEnvelopes) {
+    return [
+        ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
+        ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
+    ]
 }

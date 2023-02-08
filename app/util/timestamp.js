@@ -50,8 +50,13 @@ export default class Timestamp {
         return new Timestamp(date)
     }
 
-    startOfYear() {
-        return new Timestamp(this.year.toString())
+    startOfClosestYear() {
+        const startOfYear = new Timestamp(this.year.toString())
+        const startOfNextYear = new Timestamp((this.year + 1).toString())
+
+        return (this - startOfYear < startOfNextYear - this)
+            ? startOfYear
+            : startOfNextYear
     }
 
     toYearString() {

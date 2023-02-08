@@ -5,9 +5,10 @@ import "../../styles/timeline/grid.css"
 function makeTick(tickIdx, tickCount, range) {
     const t = tickIdx / (tickCount - 1)
     const timestamp = range.lerp(t)
-    const tSnappedToYear = range.inverseLerp(timestamp.startOfYear())
+    const snappedTimestamp = timestamp.startOfClosestYear()
+    const snappedT = range.inverseLerp(snappedTimestamp)
 
-    return { t: tSnappedToYear, year: timestamp.year }
+    return { t: snappedT, year: snappedTimestamp.year }
 }
 
 export default function TimelineGrid({ viewportRange, maxTicks }) {
