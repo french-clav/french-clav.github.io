@@ -10,15 +10,10 @@
     box-sizing: border-box;
 }
 
-.succession-diagram-title-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+.succession-diagram-title {
+    margin-bottom: 30px;
 }
 
-.succession-diagram-title {
+.succession-diagram-title > span {
     font-size: 1.3em;
-    margin-bottom: 20px;
-    font-family: Alegreya;
 }

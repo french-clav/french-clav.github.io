@@ -12,3 +12,7 @@
 .composer-row-exit-active, .composer-row-exit-done {
     opacity: 0;
 }
+
+.composer-row-exit-done {
+    visibility: hidden;
+}
