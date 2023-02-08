@@ -12,9 +12,9 @@ export default function useComposerModalState() {
     }
 
     const open = (composer, publication) => {
-        setSelectedComposer(composer)
-        setSelectedPublication(publication ?? null)
-        setOpen(true)
+        // setSelectedComposer(composer)
+        // setSelectedPublication(publication ?? null)
+        // setOpen(true)
     }
 
     const close = () => {

@@ -69,17 +69,17 @@ function rangeToFitAll(composerEnvelopes) {
 }
 
 function orderComposerEnvelopes(composerEnvelopes, displaySettings) {
-    if (displaySettings.lifetimes) {
-        return [
-            ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
-            ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
-        ]
-    }
-
     if (displaySettings.publications) {
         return [
             ...composerEnvelopes.filter(e => e.composer.publications.length > 0).orderBy(e => e.composer.publications.min(p => p.timestamp)),
             ...composerEnvelopes.filter(e => e.composer.publications.length === 0).orderBy(e => e.composer.name)
+        ]
+    }
+
+    if (displaySettings.lifetimes) {
+        return [
+            ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
+            ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
         ]
     }
 

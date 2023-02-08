@@ -9,3 +9,16 @@
     padding: 20px;
     box-sizing: border-box;
 }
+
+.succession-diagram-title-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.succession-diagram-title {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    font-family: Alegreya;
+}
