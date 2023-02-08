@@ -16,6 +16,7 @@ export default class SuccessionTreePositioner {
         this.subtreeSeparation = options.subtreeSeparation
     }
 
+    // TODO: refactor
     position(tree) {
         const vertexMap = new Map()
         const nodeSizeMap = new Map()
@@ -45,8 +46,9 @@ export default class SuccessionTreePositioner {
             }
         })
 
-        const boundingBox = nodeBoxes.reduce((acc, next) => acc.union(next.box), new BoundingBox())
+        const boundingBox = BoundingBox.unionAll(nodeBoxes.map(n => n.box))
 
+        // TODO: introduce BoxedPoint concept: a point belonging to a bounding box - can calculate proportional position
         const nodePlaces = nodeBoxes.map(({ node, box: nodeBox }) => ({
             node,
             ...this.#untransform(boundingBox.getLocalProportionalPosition(nodeBox.topLeft())).xy(),
@@ -72,7 +74,7 @@ export default class SuccessionTreePositioner {
                 ]
 
                 if (node.successors.length > 1) {
-                    const successorsBoundingBox = successorNodeBoxes.reduce((acc, next) => acc.union(next.box), new BoundingBox())
+                    const successorsBoundingBox = BoundingBox.unionAll(successorNodeBoxes.map(n => n.box))
                     const from = successorsBoundingBox.topLeft().addY(-this.levelSeparation / 2).addX(this.#nodeSize.x / 2)
                     const to = successorsBoundingBox.topRight().addY(-this.levelSeparation / 2).addX(-this.#nodeSize.x / 2)
 

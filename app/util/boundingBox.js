@@ -47,6 +47,31 @@ export default class BoundingBox {
             .encapsulate(other.bottomRight())
     }
 
+    offset(distance) {
+        return new BoundingBox(
+            this.x - distance,
+            this.y - distance,
+            this.width + distance * 2,
+            this.height + distance * 2
+        )
+    }
+
+    offsetLeft(distance) {
+        return new BoundingBox(this.x - distance, this.y, this.width + distance, this.height)
+    }
+
+    offsetTop(distance) {
+        return new BoundingBox(this.x, this.y - distance, this.width, this.height + distance)
+    }
+
+    offsetRight(distance) {
+        return new BoundingBox(this.x, this.y, this.width + distance, this.height)
+    }
+
+    offsetBottom(distance) {
+        return new BoundingBox(this.x, this.y, this.width, this.height + distance)
+    }
+
     getLocalPosition(vector) {
         return new Vector2(vector.x - this.x, vector.y - this.y)
     }
@@ -57,5 +82,9 @@ export default class BoundingBox {
 
     getLocalProportionalSize(vector) {
         return new Vector2(vector.x / this.width, vector.y / this.height)
+    }
+
+    static unionAll(boundingBoxes) {
+        return boundingBoxes.reduce((accumulator, next) => accumulator.union(next), new BoundingBox())
     }
 }
