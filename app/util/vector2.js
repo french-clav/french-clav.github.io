@@ -1,5 +1,3 @@
-import _ from "lodash"
-
 export default class Vector2 {
     constructor(x, y) {
         this.x = x
@@ -23,7 +21,7 @@ export default class Vector2 {
     }
 
     scale(other) {
-        if (_.isNumber(other)) {
+        if (typeof other === "number") {
             return new Vector2(this.x * other, this.y * other)
         }
 

@@ -1,15 +1,16 @@
-import _ from "lodash"
 import rawComposers from "../data/resources/composers.csv"
 import rawHistoricalEpochs from "../data/resources/historicalEpochs.csv"
 import rawSuiteTypeEpochs from "../data/resources/suiteTypeEpochs.csv"
 import rawSuccessionEntries from "../data/resources/succession.csv"
 import rawSuccessionGroups from "../data/resources/successionGroups.csv"
+import rawGenerations from "../data/resources/generations.csv"
 
 import Timestamp from "../util/timestamp.js"
 import Composer from "./composer.js"
 import Publication from "./publication.js"
 import Epoch from "./epoch.js"
 import { SuccessionTreeBuilder } from "./successionTree.js"
+import Generation from "./generation.js"
 
 export default class Repository {
     static composers = parseComposers(rawComposers)
@@ -17,15 +18,16 @@ export default class Repository {
     static suiteTypeEpochs = parseEpochs(rawSuiteTypeEpochs)
     static successionTree = parseSuccessionTree(rawSuccessionEntries, this.composers)
     static successionGroups = parseSuccessionGroups(rawSuccessionGroups, this.composers)
+    static generations = parseGenerations(rawGenerations, this.composers)
 }
 
 function parseComposers(rawComposers) {
     return rawComposers.map(c =>
         new Composer(
-            c.id,
+            parseInt(c.id),
             c.name,
-            !_.isEmpty(c.birth) ? new Timestamp(c.birth) : null,
-            !_.isEmpty(c.death) ? new Timestamp(c.death) : null,
+            c.birth != "" ? new Timestamp(c.birth) : null,
+            c.death != "" ? new Timestamp(c.death) : null,
             parsePublications(c.publications),
             c.bio,
             c.photoFileName,
@@ -35,7 +37,7 @@ function parseComposers(rawComposers) {
 }
 
 function parsePublications(rawPublications) {
-    if (_.isEmpty(rawPublications)) {
+    if (rawPublications == null || rawPublications == "") {
         return []
     }
 
@@ -60,8 +62,8 @@ function parseSuccessionTree(rawSuccessionEntries, composers) {
     const builder = new SuccessionTreeBuilder()
 
     for (const entry of rawSuccessionEntries) {
-        const composer = composers.find(c => c.id === entry.composerId)
-        const predecessor = composers.find(c => c.id === entry.predecessorId)
+        const composer = composers.find(c => c.id === parseInt(entry.composerId))
+        const predecessor = composers.find(c => c.id === parseInt(entry.predecessorId))
 
         builder.insert(composer, predecessor)
     }
@@ -75,8 +77,19 @@ function parseSuccessionGroups(rawSuccessionGroups, composers) {
         name: g.name,
         composers: composers.filter(c => g.composerIds
             .split(",")
-            .map(i => i.trim())
+            .map(i => parseInt(i.trim()))
             .includes(c.id)
         )
     }))
+}
+
+function parseGenerations(rawGenerations, composers) {
+    return rawGenerations.map(g =>
+        new Generation(
+            composers.filter(c => parseInt(g.firstComposerId) <= c.id && c.id <= parseInt(g.lastComposerId)),
+            g.name,
+            g.color,
+            g.weak === "true"
+        )
+    )
 }

@@ -16,6 +16,7 @@ export default function Main(props) {
                     displaySettings={props.displaySettings}
                     openComposerModal={props.openComposerModal}
                     periodizations={props.periodizations}
+                    generations={props.generations}
                     show={props.displaySettings.lifetimes || props.displaySettings.publications}
                 />
                 {props.displaySettings.succession &&

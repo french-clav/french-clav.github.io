@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function EpochRangeBackground({ epoch: { color } }) {
+export default function EpochRangeBackground({ color }) {
     const style = {
         background: `linear-gradient(180deg, ${color}46 0%, ${color}26 50px, ${color}16 20%, ${color}13 90%, ${color}05 100%)`
     }

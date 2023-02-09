@@ -1,0 +1,6 @@
+firstComposerId,lastComposerId,name,color,weak
+1,106,Поколение первой половины XVII века,#dd5555,
+107,113,Поколение 60-х годов XVII века,#99aabb,
+114,119,Поколение 80-х годов XVII века,#99aabb,true
+120,126,Поколение 90-х годов XVII века,#99aabb,true
+127,143,Поколение первой половины XVIII века,#afbc8a,

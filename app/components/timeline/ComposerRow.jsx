@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef } from "react"
 import { CSSTransition } from "react-transition-group"
 import PublicationMarker from "./PublicationMarker.jsx"
 import ComposerBadge from "../ComposerBadge.jsx"
@@ -7,10 +7,11 @@ import classNames from "../../util/classNames.js"
 import "../../styles/timeline/composerRow.css"
 import "../../styles/composerCard.css"
 import "../../styles/timeline/composerGhost.css"
+import useLockableMemo from "../../hooks/useLockableMemo.js"
 
 const rowHeight = 54
-const rowMarginTop = 10
-const rowStep = rowHeight + rowMarginTop
+const rowMargins = 10
+const rowStep = rowHeight + rowMargins
 
 export default function ComposerRow({
     orderWithinContainer,
@@ -27,16 +28,11 @@ export default function ComposerRow({
         ? "lifetime"
         : "ghost"
 
-    const orderDelta = desiredOrder - orderWithinContainer
+    const orderAdjustment = desiredOrder - orderWithinContainer
 
-    const [translateY, setTranslateY] = useState(orderDelta * rowStep)
-    useEffect(() => {
-        // Do not change translateY when the composer row is hidden or disappearing.
-        // This removes y-jerking when hiding the rows.
-        if (show) {
-            setTranslateY(orderDelta * rowStep)
-        }
-    }, [show, orderDelta])
+    // Do not change translateY when the composer row is hidden or disappearing.
+    // This removes y-jerking when hiding the rows.
+    const translateY = useLockableMemo(() => orderAdjustment * rowStep, show, [orderAdjustment])
 
     return (
         <CSSTransition nodeRef={rowRef} in={show} timeout={250} classNames="composer-row">

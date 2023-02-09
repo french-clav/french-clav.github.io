@@ -1,0 +1,32 @@
+.generation-range {
+    position: absolute;
+    left: 0;
+    width: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.25s;
+}
+
+.generation-range-enter-active, .generation-range-enter-done {
+    opacity: 1;
+}
+
+.generation-range-exit-active, .generation-range-enter-active, .generation-range-enter-done {
+    visibility: visible;
+}
+
+.generation-label {
+    margin-right: 20px;
+}
+
+.generation-label-weak {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none;
+}
+
+.generation-label-weak > p {
+    font-weight: 400;
+}

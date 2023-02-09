@@ -27,6 +27,8 @@ export default function Root() {
         new Periodization("suiteTypes", Repository.suiteTypeEpochs, displaySettings.suiteTypes)
     ]
 
+    const generations = Repository.generations
+
     return (
         <div id="root">
             <Header />
@@ -38,6 +40,7 @@ export default function Root() {
                 periodizations={periodizations}
                 successionTree={successionTree}
                 successionGroups={successionGroups}
+                generations={generations}
             />
             <ComposerModal
                 show={composerModalState.isOpen}

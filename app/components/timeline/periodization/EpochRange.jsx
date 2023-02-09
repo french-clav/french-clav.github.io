@@ -19,9 +19,11 @@ export default function EpochRange({ epoch, viewportRange, show }) {
     return (
         <CSSTransition nodeRef={rangeRef} in={show} timeout={250} classNames="epoch-range">
             <div ref={rangeRef} className="epoch-range pointer-transparent" style={style}>
-                <EpochRangeBorder epoch={epoch} />
-                <EpochRangeBackground epoch={epoch} />
-                <EpochLabel epoch={epoch} show={show} />
+                <EpochRangeBorder color={epoch.color} />
+                <EpochRangeBackground color={epoch.color} />
+                <EpochLabel color={epoch.color} show={show}>
+                    {epoch.name}
+                </EpochLabel>
             </div>
         </CSSTransition>
     )

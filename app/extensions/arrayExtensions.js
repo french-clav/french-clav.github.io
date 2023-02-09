@@ -28,3 +28,7 @@ Array.prototype.add = function (item) {
     this.push(item)
     return item
 }
+
+Array.prototype.except = function (item) {
+    return this.filter(e => e != item)
+}

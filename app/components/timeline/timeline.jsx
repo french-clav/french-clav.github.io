@@ -7,8 +7,16 @@ import TimestampRange from "../../util/timestampRange.js"
 import { CSSTransition } from "react-transition-group"
 import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
 import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
+import GenerationRange from "./generations/GenerationRange.jsx"
 
-export default function Timeline({ composerEnvelopes, displaySettings, openComposerModal, periodizations, show }) {
+export default function Timeline({
+    composerEnvelopes,
+    displaySettings,
+    openComposerModal,
+    periodizations,
+    generations,
+    show
+}) {
     const viewportRange = new TimestampRange("1600", "1825")
     const orderedComposerEnvelopes = orderComposerEnvelopes(composerEnvelopes, displaySettings)
 
@@ -35,6 +43,14 @@ export default function Timeline({ composerEnvelopes, displaySettings, openCompo
                                 activePeriodization={periodizations.find(p => p.active)}
                             />
                         )}
+                        {generations.map(g =>
+                            <GenerationRange
+                                key={g.name}
+                                generation={g}
+                                orderedComposers={orderedComposerEnvelopes.filter(e => e.show).map(e => e.composer)}
+                                show={displaySettings.generations}
+                            />
+                        )}
                     </div>
                 </div>
                 {periodizations.map(p =>
@@ -47,6 +63,10 @@ export default function Timeline({ composerEnvelopes, displaySettings, openCompo
 }
 
 function orderComposerEnvelopes(composerEnvelopes, displaySettings) {
+    if (displaySettings.generations) {
+        return orderComposerEnvelopesByBirthDate(composerEnvelopes)
+    }
+
     if (displaySettings.publications) {
         return orderComposerEnvelopesByPublications(composerEnvelopes)
     }

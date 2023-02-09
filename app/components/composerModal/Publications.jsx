@@ -11,5 +11,5 @@ export default function Publications({ composer, selectedPublication }) {
                 ))}
             </ul>
         </>
-    );
+    )
 }

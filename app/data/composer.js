@@ -1,4 +1,3 @@
-import _ from "lodash"
 import TimestampRange from "../util/timestampRange.js"
 
 export default class Composer {
@@ -22,6 +21,6 @@ export default class Composer {
     }
 
     hasPhoto() {
-        return !_.isEmpty(this.photoFileName)
+        return this.photoFileName != null && this.photoFileName !== ""
     }
 }

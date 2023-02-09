@@ -29,6 +29,11 @@ export default function DisplaySettingsPanels({ displaySettings, setDisplaySetti
                         Модификация сюиты
                     </DisplaySettingsCheckbox>
                 </section>
+                <section>
+                    <DisplaySettingsCheckbox displaySettings={displaySettings} setDisplaySettings={setDisplaySettings} settingsKey="generations">
+                        Поколения композиторов
+                    </DisplaySettingsCheckbox>
+                </section>
             </DisplaySettingsPanel>
             <DisplaySettingsPanel>
                 <section>

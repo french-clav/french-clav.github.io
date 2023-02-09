@@ -1,13 +1,19 @@
 import { useState } from "react"
-import _ from "lodash"
+
+const zeroChronologySettings = {
+    historicalContext: false,
+    suiteTypes: false,
+    generations: false
+}
+const chronologySettingKeys = Object.keys(zeroChronologySettings)
 
 const zeroDisplaySettings = {
-    succession: false,
     publications: false,
     lifetimes: false,
-    historicalContext: false,
-    suiteTypes: false
+    ...zeroChronologySettings,
+    succession: false,
 }
+const settingKeys = Object.keys(zeroDisplaySettings)
 
 const initialDisplaySettings = {
     ...zeroDisplaySettings,
@@ -16,49 +22,75 @@ const initialDisplaySettings = {
 }
 
 export default function useDisplaySettings() {
-    const [value, setValue] = useState(initialDisplaySettings)
+    const [settings, setSettings] = useState(initialDisplaySettings)
 
     const filters = [
         resetOthersIfSuccessionEmerged,
-        resetSuccessionIfOthersEmerged,
-        resetHistoricalContextIfSuiteTypesEmerged,
-        resetSuiteTypesIfHistoricalContextEmerged
+        resetSuccessionIfAnyOtherEmerged,
+        setLifetimesIfGenerationsEmerged,
+        resetGenerationsIfLifetimesGone,
+        resetOtherChronologiesIfNewEmerged,
     ]
 
-    const setDisplaySettings = (newValue) => setValue(applyFilters(value, newValue, filters))
+    const exportedSetDisplaySettings =
+        (newSettings) => setSettings(applyFilters(settings, newSettings, filters))
 
-    return [value, setDisplaySettings]
+    return [settings, exportedSetDisplaySettings]
 }
 
-function applyFilters(oldValue, newValue, filters) {
+function applyFilters(oldSettings, newSettings, filters) {
     for (const filter of filters) {
-        newValue = filter(oldValue, newValue) ?? newValue
+        const context = {
+            oldSettings,
+            newSettings,
+            difference: getDifference(oldSettings, newSettings)
+        }
+
+        newSettings = filter(context) ?? newSettings
     }
 
-    return newValue
+    return newSettings
 }
 
-function resetOthersIfSuccessionEmerged(oldValue, newValue) {
-    if (!oldValue.succession && newValue.succession) {
+function getDifference(oldSettings, newSettings) {
+    const keyValuePairs = Object.keys(oldSettings).map(key => [
+        key,
+        toInt(newSettings[key]) - toInt(oldSettings[key])
+    ])
+
+    return Object.fromEntries(keyValuePairs)
+
+    function toInt(boolean) { return +boolean }
+}
+
+function resetOthersIfSuccessionEmerged({ difference }) {
+    if (difference.succession > 0) {
         return { ...zeroDisplaySettings, succession: true }
     }
 }
 
-function resetSuccessionIfOthersEmerged(oldValue, newValue) {
-    const anySettingBesidesSuccessionSelected = !_.isEqual({ ...newValue, succession: false }, zeroDisplaySettings)
-    if (oldValue.succession && anySettingBesidesSuccessionSelected) {
-        return { ...newValue, succession: false }
+function resetSuccessionIfAnyOtherEmerged({ newSettings, difference }) {
+    const anySettingBesidesSuccessionEmerged = settingKeys.except("succession").some(k => difference[k] > 0)
+    if (anySettingBesidesSuccessionEmerged) {
+        return { ...newSettings, succession: false }
     }
 }
 
-function resetHistoricalContextIfSuiteTypesEmerged(oldValue, newValue) {
-    if (oldValue.historicalContext && newValue.suiteTypes) {
-        return { ...newValue, historicalContext: false }
+function setLifetimesIfGenerationsEmerged({ newSettings, difference }) {
+    if (difference.generations > 0) {
+        return { ...newSettings, lifetimes: true }
     }
 }
 
-function resetSuiteTypesIfHistoricalContextEmerged(oldValue, newValue) {
-    if (oldValue.suiteTypes && newValue.historicalContext) {
-        return { ...newValue, suiteTypes: false }
+function resetGenerationsIfLifetimesGone({ newSettings, difference }) {
+    if (difference.lifetimes < 0) {
+        return { ...newSettings, generations: false }
+    }
+}
+
+function resetOtherChronologiesIfNewEmerged({ newSettings, difference }) {
+    const emergedSettingKey = chronologySettingKeys.find(k => difference[k] > 0)
+    if (emergedSettingKey) {
+        return { ...newSettings, ...zeroChronologySettings, [emergedSettingKey]: true }
     }
 }
