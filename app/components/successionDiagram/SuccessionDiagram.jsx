@@ -1,11 +1,12 @@
-import React from "react"
+import React, { useRef } from "react"
 import SuccessionTreePositioner from "../../features/successionTreePositioner.js"
 import ComposerBadge from "../ComposerBadge.jsx"
 import "../../styles/successionDiagram/successionDiagram.css"
 import BoundingBox from "../../util/boundingBox.js"
 import Info from "./Info.jsx"
+import { CSSTransition } from "react-transition-group"
 
-export default function SuccessionDiagram({ successionTree, successionGroups, openComposerModal }) {
+export default function SuccessionDiagram({ successionTree, successionGroups, openComposerModal, show }) {
     const positioner = new SuccessionTreePositioner({
         orientation: "horizontal",
         nodeWidth: 280,
@@ -29,51 +30,55 @@ export default function SuccessionDiagram({ successionTree, successionGroups, op
             .offsetBottom(0.05)
     }))
 
+    const rootRef = useRef()
+
     // TODO: refactor and extract individual components
     return (
-        <div className="zero-pos xy-centerer">
-            <div className="succession-diagram-title relative">
-                <span>Древо преемственности</span>
-                <Info>Поддающееся реконструкции на данный момент</Info>
-            </div>
-            <div className="succession-diagram-container">
-                <div className="stretch relative">
-                    {blueprint.lines.map(({ orientation, x, y, length }, idx) =>
-                        orientation == 'vertical'
-                            ? <div key={idx} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), height: length.toPercent(), width: 2, backgroundColor: "#bbb" }} />
-                            : <div key={idx} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), height: 2, width: length.toPercent(), backgroundColor: "#bbb" }} />
-                    )}
-                    {groupBoxes.map(({ group, box }) =>
-                        <div key={group.name} style={{
-                            position: "absolute",
-                            left: box.x.toPercent(),
-                            top: box.y.toPercent(),
-                            width: box.width.toPercent(),
-                            height: box.height.toPercent(),
-                            border: "1px dashed #89b496",
-                            backgroundColor: "rgb(147 199 163 / 3%)",
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "flex-end",
-                            alignItems: "center",
-                            paddingBottom: 8,
-                            borderRadius: 5
-                        }}>
-                            {group.name}
-                        </div>
-                    )}
-                    {blueprint.nodePlaces.map(({ node, x, y, width, height }) =>
-                        <div key={node.composer.id} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), width: width.toPercent(), height: height.toPercent() }}>
-                            <ComposerBadge
-                                composer={node.composer}
-                                className="composer-card"
-                                showLifetime={node.composer.hasKnownLifetime()}
-                                onClick={() => openComposerModal(node.composer)}
-                            />
-                        </div>
-                    )}
+        <CSSTransition nodeRef={rootRef} in={show} timeout={250} classNames="succession-diagram-root">
+            <div className="zero-pos xy-centerer succession-diagram-root" ref={rootRef}>
+                <div className="succession-diagram-title relative">
+                    <span>Древо преемственности</span>
+                    <Info>Поддающееся реконструкции на данный момент</Info>
+                </div>
+                <div className="succession-diagram-container">
+                    <div className="stretch relative">
+                        {blueprint.lines.map(({ orientation, x, y, length }, idx) =>
+                            orientation == 'vertical'
+                                ? <div key={idx} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), height: length.toPercent(), width: 2, backgroundColor: "#bbb" }} />
+                                : <div key={idx} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), height: 2, width: length.toPercent(), backgroundColor: "#bbb" }} />
+                        )}
+                        {groupBoxes.map(({ group, box }) =>
+                            <div key={group.name} style={{
+                                position: "absolute",
+                                left: box.x.toPercent(),
+                                top: box.y.toPercent(),
+                                width: box.width.toPercent(),
+                                height: box.height.toPercent(),
+                                border: "1px dashed #89b496",
+                                backgroundColor: "rgb(147 199 163 / 3%)",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                paddingBottom: 8,
+                                borderRadius: 5
+                            }}>
+                                {group.name}
+                            </div>
+                        )}
+                        {blueprint.nodePlaces.map(({ node, x, y, width, height }) =>
+                            <div key={node.composer.id} style={{ position: "absolute", left: x.toPercent(), top: y.toPercent(), width: width.toPercent(), height: height.toPercent() }}>
+                                <ComposerBadge
+                                    composer={node.composer}
+                                    className="composer-card"
+                                    showLifetime={node.composer.hasKnownLifetime()}
+                                    onClick={() => openComposerModal(node.composer)}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </CSSTransition>
     )
 }

@@ -19,13 +19,12 @@ export default function Main(props) {
                     generations={props.generations}
                     show={props.displaySettings.lifetimes || props.displaySettings.publications}
                 />
-                {props.displaySettings.succession &&
-                    <SuccessionDiagram
-                        successionTree={props.successionTree}
-                        successionGroups={props.successionGroups}
-                        openComposerModal={props.openComposerModal}
-                    />
-                }
+                <SuccessionDiagram
+                    successionTree={props.successionTree}
+                    successionGroups={props.successionGroups}
+                    openComposerModal={props.openComposerModal}
+                    show={props.displaySettings.succession}
+                />
                 {allHidden &&
                     <NoDataPlaceholder />
                 }
