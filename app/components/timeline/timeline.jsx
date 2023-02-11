@@ -31,6 +31,14 @@ export default function Timeline({
                         {periodizations.map(p =>
                             <PeriodizationRowSpacer key={p.name} show={p.active} />
                         )}
+                        {generations.map(g =>
+                            <GenerationRange
+                                key={g.name}
+                                generation={g}
+                                orderedComposers={orderedComposerEnvelopes.filter(e => e.show).map(e => e.composer)}
+                                show={displaySettings.generations}
+                            />
+                        )}
                         {composerEnvelopes.map(envelope =>
                             <ComposerRow
                                 key={envelope.composer.name}
@@ -40,15 +48,7 @@ export default function Timeline({
                                 viewportRange={viewportRange}
                                 displaySettings={displaySettings}
                                 openComposerModal={openComposerModal}
-                                activePeriodization={periodizations.find(p => p.active)}
-                            />
-                        )}
-                        {generations.map(g =>
-                            <GenerationRange
-                                key={g.name}
-                                generation={g}
-                                orderedComposers={orderedComposerEnvelopes.filter(e => e.show).map(e => e.composer)}
-                                show={displaySettings.generations}
+                                activeColorizer={getActiveColorizer(periodizations, generations, displaySettings)}
                             />
                         )}
                     </div>
@@ -90,4 +90,21 @@ function orderComposerEnvelopesByBirthDate(composerEnvelopes) {
         ...composerEnvelopes.filter(e => e.composer.hasKnownLifetime()).orderBy(e => e.composer.birth),
         ...composerEnvelopes.filter(e => !e.composer.hasKnownLifetime()).orderBy(e => e.composer.name)
     ]
+}
+
+function getActiveColorizer(periodizations, generations, displaySettings) {
+    if (displaySettings.historicalContext || displaySettings.suiteTypes) {
+        const activePeriodization = periodizations.find(p => p.active)
+        return function (_, timestamp) {
+            return activePeriodization.getEpoch(timestamp)?.color ?? null
+        }
+    }
+
+    if (displaySettings.generations) {
+        return function (composer) {
+            return generations.find(g => g.composers.includes(composer))?.color
+        }
+    }
+
+    return null
 }

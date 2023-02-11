@@ -9,7 +9,7 @@ export default function PublicationMarker({
     viewportRange,
     openComposerModal,
     show,
-    activePeriodization
+    activeColorizer
 }) {
     const leftPositionStyle = {
         left: `calc(${viewportRange.inverseLerp(publication.timestamp).toPercent()} - 3px)`
@@ -17,7 +17,7 @@ export default function PublicationMarker({
 
     const markerStyle = {
         ...leftPositionStyle,
-        backgroundColor: getOverridenColor(publication, activePeriodization)
+        backgroundColor: activeColorizer != null ? activeColorizer(composer, publication.timestamp) : null
     }
 
     const markerRef = useRef()
@@ -38,8 +38,4 @@ export default function PublicationMarker({
             </>
         </CSSTransition>
     )
-}
-
-function getOverridenColor(publication, activePeriodization) {
-    return activePeriodization?.getEpoch(publication.timestamp)?.color ?? null
 }

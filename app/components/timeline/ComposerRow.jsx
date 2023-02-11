@@ -20,7 +20,7 @@ export default function ComposerRow({
     viewportRange,
     displaySettings,
     openComposerModal,
-    activePeriodization
+    activeColorizer
 }) {
     const rowRef = useRef()
 
@@ -46,7 +46,7 @@ export default function ComposerRow({
                         composer={composer}
                         className={classNames({
                             "composer-badge-animated": true,
-                            "colorless": activePeriodization != null,
+                            "colorless": activeColorizer != null,
                             "composer-card": type === "lifetime",
                             "composer-ghost relative": type === "ghost"
                         })}
@@ -62,7 +62,7 @@ export default function ComposerRow({
                         viewportRange={viewportRange}
                         openComposerModal={openComposerModal}
                         show={displaySettings.publications}
-                        activePeriodization={activePeriodization}
+                        activeColorizer={activeColorizer}
                     />
                 )}
             </div>

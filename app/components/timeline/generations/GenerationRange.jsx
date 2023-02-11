@@ -24,8 +24,10 @@ export default function GenerationRange({ generation, orderedComposers, show }) 
     return (
         <CSSTransition nodeRef={rangeRef} in={show} timeout={250} classNames="generation-range">
             <div className="generation-range pointer-transparent" ref={rangeRef} style={positionStyle}>
-                <GenerationRangeBorder color={generation.color} />
-                <GenerationRangeBackground color={generation.color} />
+                {!generation.isWeak &&
+                    <GenerationRangeBackground color={generation.color} />
+                }
+                <GenerationRangeBorder color={generation.color} isWeak={generation.isWeak} />
                 <EpochLabel className={`generation-label ${generation.isWeak ? "generation-label-weak" : ""}`} color={generation.color} align="end" show={show}>
                     {generation.name}
                 </EpochLabel>

@@ -1,10 +1,20 @@
 .generation-range-border {
+    width: calc(100% - 2px);
+    height: 100%;
+}
+
+.generation-range-border-strong {
     border-top-width: 1px;
     border-top-style: solid;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-image-slice: 1;
-    width: calc(100% - 2px);
-    height: 100%;
-    filter: brightness(0.75)
+    filter: brightness(0.75);
+}
+
+.generation-range-border-weak {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-image-slice: 1;
+    filter: brightness(0.4);
 }
