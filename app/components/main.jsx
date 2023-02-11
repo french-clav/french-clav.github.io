@@ -43,8 +43,14 @@ function searchComposerEnvelopes(composerEnvelopes, query) {
         return composerEnvelopes
     }
 
+    const lowerQuery = query.toLowerCase()
+
     return composerEnvelopes.map(e => ({
         ...e,
-        show: e.show && e.composer.name.toLowerCase().includes(query.toLowerCase())
+        show: e.show && (
+            e.composer.name.toLowerCase().includes(lowerQuery) ||
+            (e.composer.birth?.toString().includes(lowerQuery) ?? false) ||
+            (e.composer.death?.toString().includes(lowerQuery) ?? false)
+        )
     }))
 }

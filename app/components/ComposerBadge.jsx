@@ -16,7 +16,7 @@ export default function ComposerBadge({
             <p className="composer-name">
                 <HighlightableText text={composer.name} searchQuery={searchQuery} />
             </p>
-            <ComposerYears composer={composer} show={showLifetime} />
+            <ComposerYears composer={composer} searchQuery={searchQuery} show={showLifetime} />
         </div>
     )
 }
