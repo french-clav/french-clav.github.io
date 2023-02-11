@@ -8,6 +8,7 @@ import { CSSTransition } from "react-transition-group"
 import PeriodizationLayer from "./periodization/PeriodizationLayer.jsx"
 import PeriodizationRowSpacer from "./periodization/PeriodizationRowSpacer.jsx"
 import GenerationRange from "./generations/GenerationRange.jsx"
+import SearchInput from "./SearchInput.jsx"
 
 export default function Timeline({
     composerEnvelopes,
@@ -15,10 +16,14 @@ export default function Timeline({
     openComposerModal,
     periodizations,
     generations,
+    searchQuery,
+    setSearchQuery,
     show
 }) {
     const viewportRange = new TimestampRange("1600", "1825")
+
     const orderedComposerEnvelopes = orderComposerEnvelopes(composerEnvelopes, displaySettings)
+    const orderedShownComposers = orderedComposerEnvelopes.filter(e => e.show).map(e => e.composer)
 
     const timelineRef = useRef()
 
@@ -35,7 +40,7 @@ export default function Timeline({
                             <GenerationRange
                                 key={g.name}
                                 generation={g}
-                                orderedComposers={orderedComposerEnvelopes.filter(e => e.show).map(e => e.composer)}
+                                orderedComposers={orderedShownComposers}
                                 show={displaySettings.generations}
                             />
                         )}
@@ -49,6 +54,7 @@ export default function Timeline({
                                 displaySettings={displaySettings}
                                 openComposerModal={openComposerModal}
                                 activeColorizer={getActiveColorizer(periodizations, generations, displaySettings)}
+                                searchQuery={searchQuery}
                             />
                         )}
                     </div>
@@ -57,6 +63,7 @@ export default function Timeline({
                     <PeriodizationLayer key={p.name} periodization={p} viewportRange={viewportRange} show={p.active} />
                 )}
                 <div className="zero-pos timeline-top-bottom-shadows" />
+                <SearchInput query={searchQuery} setQuery={setSearchQuery} />
             </div>
         </CSSTransition>
     )

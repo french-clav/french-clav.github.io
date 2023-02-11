@@ -11,8 +11,13 @@ const rowMargins = 10
 const rowStep = rowHeight + rowMargins
 
 export default function GenerationRange({ generation, orderedComposers, show }) {
-    const top = orderedComposers.indexOf(generation.first) * rowStep
-    const bottom = (orderedComposers.indexOf(generation.last) + 1) * rowStep
+    const indexOfFirst = orderedComposers.findIndex(c => generation.composers.includes(c))
+    const indexOfLast = orderedComposers.findLastIndex(c => generation.composers.includes(c)) + 1
+
+    const top = indexOfFirst * rowStep
+    const bottom = indexOfLast * rowStep
+
+    show &&= indexOfFirst != -1 && indexOfLast != -1
 
     const positionStyle = useLockableMemo(() => ({
         top: top,

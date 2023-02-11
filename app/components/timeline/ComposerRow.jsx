@@ -20,7 +20,8 @@ export default function ComposerRow({
     viewportRange,
     displaySettings,
     openComposerModal,
-    activeColorizer
+    activeColorizer,
+    searchQuery
 }) {
     const rowRef = useRef()
 
@@ -52,6 +53,7 @@ export default function ComposerRow({
                         })}
                         showLifetime={displaySettings.lifetimes}
                         onClick={() => openComposerModal(composer)}
+                        searchQuery={searchQuery}
                     />
                 </RangeContainer>
                 {composer.publications.map(p =>
