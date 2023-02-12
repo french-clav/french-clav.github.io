@@ -70,6 +70,12 @@ export default function Timeline({
 }
 
 function orderComposerEnvelopes(composerEnvelopes, displaySettings) {
+    if (displaySettings.lifetimes && displaySettings.publications) {
+        return displaySettings.orderByPublications
+            ? orderComposerEnvelopesByPublications(composerEnvelopes)
+            : orderComposerEnvelopesByBirthDate(composerEnvelopes)
+    }
+
     if (displaySettings.generations) {
         return orderComposerEnvelopesByBirthDate(composerEnvelopes)
     }

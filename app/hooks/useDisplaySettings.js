@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const zeroChronologySettings = {
     historicalContext: false,
@@ -8,8 +8,9 @@ const zeroChronologySettings = {
 const chronologySettingKeys = Object.keys(zeroChronologySettings)
 
 const zeroDisplaySettings = {
-    publications: false,
     lifetimes: false,
+    publications: false,
+    orderByPublications: false,
     ...zeroChronologySettings,
     succession: false,
 }
@@ -17,8 +18,8 @@ const settingKeys = Object.keys(zeroDisplaySettings)
 
 const initialDisplaySettings = {
     ...zeroDisplaySettings,
-    publications: true,
     lifetimes: true,
+    publications: true,
 }
 
 export default function useDisplaySettings() {
@@ -27,8 +28,8 @@ export default function useDisplaySettings() {
     const filters = [
         resetOthersIfSuccessionEmerged,
         resetSuccessionIfAnyOtherEmerged,
-        setLifetimesIfGenerationsEmerged,
-        resetGenerationsIfLifetimesGone,
+        setOrderByLifetimesIfGenerationsEmerged,
+        resetGenerationsIfOrderByLifetimesGone,
         resetOtherChronologiesIfNewEmerged,
     ]
 
@@ -76,14 +77,14 @@ function resetSuccessionIfAnyOtherEmerged({ newSettings, difference }) {
     }
 }
 
-function setLifetimesIfGenerationsEmerged({ newSettings, difference }) {
+function setOrderByLifetimesIfGenerationsEmerged({ newSettings, difference }) {
     if (difference.generations > 0) {
-        return { ...newSettings, lifetimes: true }
+        return { ...newSettings, orderByPublications: false }
     }
 }
 
-function resetGenerationsIfLifetimesGone({ newSettings, difference }) {
-    if (difference.lifetimes < 0) {
+function resetGenerationsIfOrderByLifetimesGone({ newSettings, difference }) {
+    if (difference.orderByPublications > 0) {
         return { ...newSettings, generations: false }
     }
 }
