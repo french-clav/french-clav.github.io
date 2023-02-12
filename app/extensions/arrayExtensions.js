@@ -32,3 +32,7 @@ Array.prototype.add = function (item) {
 Array.prototype.except = function (item) {
     return this.filter(e => e != item)
 }
+
+Array.prototype.exceptAll = function (other) {
+    return this.filter(e => !other.includes(e))
+}

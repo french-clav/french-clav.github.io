@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 const zeroChronologySettings = {
     historicalContext: false,
@@ -7,14 +7,18 @@ const zeroChronologySettings = {
 }
 const chronologySettingKeys = Object.keys(zeroChronologySettings)
 
-const zeroDisplaySettings = {
+const zeroVisibilitySettings = {
     lifetimes: false,
     publications: false,
-    orderByPublications: false,
     ...zeroChronologySettings,
     succession: false,
 }
-const settingKeys = Object.keys(zeroDisplaySettings)
+const visibilityKeys = Object.keys(zeroVisibilitySettings)
+
+const zeroDisplaySettings = {
+    ...zeroVisibilitySettings,
+    orderByPublications: false,
+}
 
 const initialDisplaySettings = {
     ...zeroDisplaySettings,
@@ -28,6 +32,7 @@ export default function useDisplaySettings() {
     const filters = [
         resetOthersIfSuccessionEmerged,
         resetSuccessionIfAnyOtherEmerged,
+        setLifetimesAndPublicationsIfAnyChronologyEmergedFromZero,
         setOrderByLifetimesIfGenerationsEmerged,
         resetGenerationsIfOrderByLifetimesGone,
         resetOtherChronologiesIfNewEmerged,
@@ -44,7 +49,7 @@ function applyFilters(oldSettings, newSettings, filters) {
         const context = {
             oldSettings,
             newSettings,
-            difference: getDifference(oldSettings, newSettings)
+            difference: getVisibilityDifference(oldSettings, newSettings)
         }
 
         newSettings = filter(context) ?? newSettings
@@ -53,8 +58,8 @@ function applyFilters(oldSettings, newSettings, filters) {
     return newSettings
 }
 
-function getDifference(oldSettings, newSettings) {
-    const keyValuePairs = Object.keys(oldSettings).map(key => [
+function getVisibilityDifference(oldSettings, newSettings) {
+    const keyValuePairs = visibilityKeys.map(key => [
         key,
         toInt(newSettings[key]) - toInt(oldSettings[key])
     ])
@@ -71,9 +76,23 @@ function resetOthersIfSuccessionEmerged({ difference }) {
 }
 
 function resetSuccessionIfAnyOtherEmerged({ newSettings, difference }) {
-    const anySettingBesidesSuccessionEmerged = settingKeys.except("succession").some(k => difference[k] > 0)
+    const anySettingBesidesSuccessionEmerged = visibilityKeys.except("succession").some(k => difference[k] > 0)
     if (anySettingBesidesSuccessionEmerged) {
         return { ...newSettings, succession: false }
+    }
+}
+
+function setLifetimesAndPublicationsIfAnyChronologyEmergedFromZero({ oldSettings, newSettings, difference }) {
+    const anyChronologyEmerged = chronologySettingKeys.some(k => difference[k] > 0)
+    const noChronologiesBefore = !chronologySettingKeys.some(k => oldSettings[k])
+    const noOtherSettingsBesidesChronologiesSelected = !visibilityKeys.exceptAll(chronologySettingKeys).some(k => newSettings[k])
+
+    if (anyChronologyEmerged && noChronologiesBefore && noOtherSettingsBesidesChronologiesSelected) {
+        return {
+            ...newSettings,
+            lifetimes: true,
+            publications: true
+        }
     }
 }
 
