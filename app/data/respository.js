@@ -1,4 +1,5 @@
 import rawComposers from "../data/resources/composers.csv"
+import rawPublications from "../data/resources/publications.csv"
 import rawHistoricalEpochs from "../data/resources/historicalEpochs.csv"
 import rawSuiteTypeEpochs from "../data/resources/suiteTypeEpochs.csv"
 import rawSuccessionEntries from "../data/resources/succession.csv"
@@ -13,7 +14,8 @@ import { SuccessionTreeBuilder } from "./successionTree.js"
 import Generation from "./generation.js"
 
 export default class Repository {
-    static composers = parseComposers(rawComposers)
+    static publications = parsePublications(rawPublications)
+    static composers = parseComposers(rawComposers, this.publications)
     static historicalEpochs = parseEpochs(rawHistoricalEpochs)
     static suiteTypeEpochs = parseEpochs(rawSuiteTypeEpochs)
     static successionTree = parseSuccessionTree(rawSuccessionEntries, this.composers)
@@ -21,14 +23,14 @@ export default class Repository {
     static generations = parseGenerations(rawGenerations, this.composers)
 }
 
-function parseComposers(rawComposers) {
+function parseComposers(rawComposers, publications) {
     return rawComposers.map(c =>
         new Composer(
             parseInt(c.id),
             c.name,
             c.birth != "" ? new Timestamp(c.birth) : null,
             c.death != "" ? new Timestamp(c.death) : null,
-            parsePublications(c.publications),
+            parseComposerPublications(c.publications, publications),
             c.bio,
             c.photoFileName,
             c.hideFromList === "true"
@@ -37,14 +39,26 @@ function parseComposers(rawComposers) {
 }
 
 function parsePublications(rawPublications) {
-    if (rawPublications == null || rawPublications == "") {
+    return rawPublications.map(p =>
+        new Publication(
+            parseInt(p.id),
+            p.date,
+            p.type,
+            p.typeGenitive,
+            p.name
+        )
+    )
+}
+
+function parseComposerPublications(rawPublicationIds, publications) {
+    if (rawPublicationIds == null || rawPublicationIds == "") {
         return []
     }
 
-    return rawPublications
+    return rawPublicationIds
         .split(",")
-        .map(p => p.trim())
-        .map(p => new Publication(p))
+        .map(x => parseInt(x.trim()))
+        .map(id => publications.find(p => p.id == id))
 }
 
 function parseEpochs(rawEpochs) {

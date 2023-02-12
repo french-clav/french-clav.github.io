@@ -32,7 +32,15 @@ export default function PublicationMarker({
                     onClick={() => openComposerModal(composer, publication)}
                 />
                 <div className="publication-marker-tooltip prevent-select" style={leftPositionStyle}>
-                    <div className="publication-marker-tooltip-title">Издание сборника</div>
+                    <div className="publication-marker-tooltip-title">
+                        <span>Издание</span>
+                        {publication.typeGenitive != null && publication.typeGenitive !== "" &&
+                            <span> {publication.typeGenitive}</span>
+                        }
+                        {publication.name != null && publication.name !== "" &&
+                            <span> «{publication.name}»</span>
+                        }
+                    </div>
                     <div className="publication-marker-tooltip-timestamp">{publication.timestamp.toString()}</div>
                 </div>
             </>
