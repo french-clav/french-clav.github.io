@@ -49,7 +49,7 @@ function applyFilters(oldSettings, newSettings, filters) {
         const context = {
             oldSettings,
             newSettings,
-            difference: getVisibilityDifference(oldSettings, newSettings)
+            difference: getDifference(oldSettings, newSettings)
         }
 
         newSettings = filter(context) ?? newSettings
@@ -58,8 +58,8 @@ function applyFilters(oldSettings, newSettings, filters) {
     return newSettings
 }
 
-function getVisibilityDifference(oldSettings, newSettings) {
-    const keyValuePairs = visibilityKeys.map(key => [
+function getDifference(oldSettings, newSettings) {
+    const keyValuePairs = Object.keys(oldSettings).map(key => [
         key,
         toInt(newSettings[key]) - toInt(oldSettings[key])
     ])
