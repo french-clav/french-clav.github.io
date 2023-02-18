@@ -33,7 +33,8 @@ function parseComposers(rawComposers, publications) {
             parseComposerPublications(c.publications, publications),
             c.bio,
             c.photoFileName,
-            c.hideFromList === "true"
+            c.hideFromList === "true",
+            c.tooltip
         )
     )
 }

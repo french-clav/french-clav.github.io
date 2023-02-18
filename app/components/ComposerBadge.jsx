@@ -17,6 +17,11 @@ export default function ComposerBadge({
                 <HighlightableText text={composer.name} searchQuery={searchQuery} />
             </p>
             <ComposerYears composer={composer} searchQuery={searchQuery} show={showLifetime} />
+            {composer.tooltip != null && composer.tooltip !== "" &&
+                <div className="composer-badge-tooltip prevent-select">
+                    {composer.tooltip}
+                </div>
+            }
         </div>
     )
 }

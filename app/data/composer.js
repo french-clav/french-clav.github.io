@@ -1,7 +1,7 @@
 import TimestampRange from "../util/timestampRange.js"
 
 export default class Composer {
-    constructor(id, name, birth, death, publications, bio, photoFileName, hideFromList) {
+    constructor(id, name, birth, death, publications, bio, photoFileName, hideFromList, tooltip) {
         this.id = id
         this.name = name
         this.birth = birth
@@ -10,6 +10,7 @@ export default class Composer {
         this.bio = bio
         this.photoFileName = photoFileName
         this.hideFromList = hideFromList
+        this.tooltip = tooltip
     }
 
     get lifetime() {
