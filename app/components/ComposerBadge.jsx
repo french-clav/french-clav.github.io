@@ -12,16 +12,18 @@ export default function ComposerBadge({
     searchQuery
 }) {
     return (
-        <div className={`composer-badge ${className}`} onClick={onClick}>
-            <p className="composer-name">
-                <HighlightableText text={composer.name} searchQuery={searchQuery} />
-            </p>
-            <ComposerYears composer={composer} searchQuery={searchQuery} show={showLifetime} />
+        <>
+            <div className={`composer-badge ${className}`} onClick={onClick}>
+                <p className="composer-name">
+                    <HighlightableText text={composer.name} searchQuery={searchQuery} />
+                </p>
+                <ComposerYears composer={composer} searchQuery={searchQuery} show={showLifetime} />
+            </div>
             {composer.tooltip != null && composer.tooltip !== "" &&
                 <div className="composer-badge-tooltip prevent-select">
                     {composer.tooltip}
                 </div>
             }
-        </div>
+        </>
     )
 }
